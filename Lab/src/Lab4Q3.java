@@ -144,6 +144,7 @@ public class Lab4Q3
                 continue;
 
             // processing
+
             customer.pizzaArray.add(new PizzaOrder(menu.pizzaArray.get(index).name, menu.pizzaArray.get(index).price, quantity));
 
         }

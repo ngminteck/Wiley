@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 class Calulator
 {
+    private double firstDigit;
+    private double secondDigit;
+    private char operator;
     Calulator()
     {
         firstDigit = 0;
@@ -119,9 +122,7 @@ class Calulator
                 return "Error!";
         }
     }
-    private double firstDigit;
-    private double secondDigit;
-    private char operator;
+
 }
 public class Lab4Q2
 {

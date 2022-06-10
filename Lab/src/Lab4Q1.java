@@ -3,23 +3,60 @@ import java.util.Scanner;
 
 class Subject
 {
+    private String name = "";
+    private double score = 0.0;
     Subject(String _name, double _score)
     {
         name =_name;
         score =_score;
     }
-    String name = "";
-    double score = 0.0;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
 }
 
 class Student
 {
+
+    private String name;
+    private ArrayList<Subject> subjectsArr = new ArrayList<Subject>();
     Student(String _name)
     {
         name = _name;
     }
-    String name;
-    ArrayList<Subject> subjectsArr = new ArrayList<Subject>();
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ArrayList<Subject> getSubjectsArr() {
+        return subjectsArr;
+    }
+
+    public void setSubjectsArr(ArrayList<Subject> subjectsArr) {
+        this.subjectsArr = subjectsArr;
+    }
+    public void AddSubject(String name, double score)
+    {
+        subjectsArr.add(new Subject(name,score));
+    }
 
 }
 
@@ -32,7 +69,7 @@ class GradeProcessing
 
         for(int i = 0 ; i < subjectArrayList.size(); ++ i )
         {
-            grade += subjectArrayList.get(i).score;
+            grade += subjectArrayList.get(i).getScore();
         }
 
         if(subjectArrayList.size() > 0)
@@ -71,9 +108,7 @@ public class Lab4Q1
             int no = i + 1;
             System.out.println("Student " + no + " name");
             Student student = new Student(userInput.next());
-
             System.out.println("Please enter the student" + no + " module name, follow by space and the score");
-
             String[] data = userInput.next().split("[ ]");
 
             for(int j = 0; j < data.length ; j+= 2)
@@ -94,11 +129,11 @@ public class Lab4Q1
                 if(score < 0)
                     continue;
 
-                student.subjectsArr.add(new Subject(data[j],score));
+                student.AddSubject(data[j],score);
                 System.out.println("Subject Name:" + data[j] + " score:" +score);
             }
 
-            System.out.println(GradeProcessing.ProcessGrade(student.name,student.subjectsArr));
+            System.out.println(GradeProcessing.ProcessGrade(student.getName(),student.getSubjectsArr()));
 
         }
 
