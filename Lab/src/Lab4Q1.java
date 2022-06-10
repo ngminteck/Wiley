@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 class Subject
 {
-    private String name = "";
-    private double score = 0.0;
+    private final String name;
+    private final double score;
     Subject(String _name, double _score)
     {
         name =_name;
@@ -15,24 +15,16 @@ class Subject
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public double getScore() {
         return score;
-    }
-
-    public void setScore(double score) {
-        this.score = score;
     }
 }
 
 class Student
 {
 
-    private String name;
-    private ArrayList<Subject> subjectsArr = new ArrayList<Subject>();
+    private final String name;
+    private final ArrayList<Subject> subjectsArr = new ArrayList<>();
     Student(String _name)
     {
         name = _name;
@@ -42,17 +34,10 @@ class Student
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public ArrayList<Subject> getSubjectsArr() {
         return subjectsArr;
     }
 
-    public void setSubjectsArr(ArrayList<Subject> subjectsArr) {
-        this.subjectsArr = subjectsArr;
-    }
     public void AddSubject(String name, double score)
     {
         subjectsArr.add(new Subject(name,score));
@@ -67,9 +52,8 @@ class GradeProcessing
 
         double grade = 0.0;
 
-        for(int i = 0 ; i < subjectArrayList.size(); ++ i )
-        {
-            grade += subjectArrayList.get(i).getScore();
+        for (Subject subject : subjectArrayList) {
+            grade += subject.getScore();
         }
 
         if(subjectArrayList.size() > 0)
@@ -109,7 +93,7 @@ public class Lab4Q1
             System.out.println("Student " + no + " name");
             Student student = new Student(userInput.next());
             System.out.println("Please enter the student" + no + " module name, follow by space and the score");
-            String[] data = userInput.next().split("[ ]");
+            String[] data = userInput.next().split(" ");
 
             for(int j = 0; j < data.length ; j+= 2)
             {
@@ -121,7 +105,7 @@ public class Lab4Q1
                 {
                     score = Double.parseDouble(data[j + 1]);
                 }
-                catch(NumberFormatException ex)
+                catch(NumberFormatException ignored)
                 {
 
                 }

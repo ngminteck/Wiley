@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 class Calulator
 {
-    private double firstDigit;
-    private double secondDigit;
-    private char operator;
+    protected double firstDigit;
+    protected double secondDigit;
+    protected char operator;
     Calulator()
     {
         firstDigit = 0;
@@ -19,7 +19,7 @@ class Calulator
 
         Scanner userInput1 = new Scanner(System.in);
 
-        double x = 0.0;
+        double x ;
         System.out.println("Please enter first value.");
         while(!userInput1.hasNextDouble())
         {
@@ -42,7 +42,7 @@ class Calulator
         }
 
         Scanner userInput3 = new Scanner(System.in);
-        double y = 0.0;
+        double y;
         System.out.println("Please enter second value.");
         while(!userInput3.hasNextDouble())
         {
@@ -62,28 +62,28 @@ class Calulator
         operator =_op;
     }
 
-    public static String Add(double x, double y)
+    public String Add(double x, double y)
     {
         String print = DoubleStringFormat(x) + " + " + DoubleStringFormat(y) + " = ";
         double result = x + y;
         return print + DoubleStringFormat(result);
     }
 
-    public static String Sub(double x, double y)
+    public String Sub(double x, double y)
     {
         String print = DoubleStringFormat(x) + " - " + DoubleStringFormat(y) + " = ";
         double result = x - y;
         return print + DoubleStringFormat(result);
     }
 
-    public static String Mul(double x, double y)
+    public String Mul(double x, double y)
     {
         String print = DoubleStringFormat(x) + " * " + DoubleStringFormat(y) + " = ";
         double result = x * y;
         return print + DoubleStringFormat(result);
     }
 
-    public static String Div(double x, double y)
+    public String Div(double x, double y)
     {
         String print = DoubleStringFormat(x) + " / " + DoubleStringFormat(y) + " = ";
         double result = 0;
@@ -93,7 +93,7 @@ class Calulator
         return print + DoubleStringFormat(result);
     }
 
-    public static String DoubleStringFormat(double value)
+    public  String DoubleStringFormat(double value)
     {
         // not a good practice cast double to long as maybe the size is difference
         if(value == (long) value)

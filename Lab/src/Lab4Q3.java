@@ -3,16 +3,26 @@ import java.util.Scanner;
 
 class PizzaInfo
 {
+    private final String name ;
+    private final double price;
     PizzaInfo(String _name, double _price)
     {
         name = _name;
         price = _price;
     }
-    String name = "";
-    double price = 0.0;
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
 }
 class PizzaMenu
 {
+    private final ArrayList<PizzaInfo> pizzaArray = new ArrayList<>();
     PizzaMenu()
     {
         pizzaArray.add(new PizzaInfo("Cheese", 5));
@@ -20,16 +30,21 @@ class PizzaMenu
         pizzaArray.add(new PizzaInfo("Seafood", 10));
     }
 
+    public ArrayList<PizzaInfo> getPizzaArray() {
+        return pizzaArray;
+    }
+
     public void DisplayMenu()
     {
         for(int i = 0; i < pizzaArray.size() ; ++ i)
         {
-            System.out.println(i + 1 + ":" + pizzaArray.get(i).name + ":$" + DoubleStringFormat(pizzaArray.get(i).price));
+            System.out.println(i + 1 + ":" + pizzaArray.get(i).getName() + ":$" + DoubleStringFormat(pizzaArray.get(i).getPrice()));
         }
     }
 
     public static String DoubleStringFormat(double value)
     {
+
         // not a good practice cast double to long as maybe the size is difference
         if(value == (long) value)
             return String.format("%d",(long)value);
@@ -37,37 +52,54 @@ class PizzaMenu
             return String.format("%s",value);
     }
 
-     ArrayList<PizzaInfo> pizzaArray = new ArrayList<PizzaInfo>();
-
 }
 class PizzaOrder
 {
+    private final String name;
+    private final int quantity;
+    private final double price;
     PizzaOrder(String _name, double _price , int _quantity )
     {
         name = _name;
         price = _price;
         quantity = _quantity;
     }
-
-    String name ="";
-    int quantity = 1;
-    double price = 0;
+    public String getName() {
+        return name;
+    }
+    public int getQuantity() {
+        return quantity;
+    }
+    public double getPrice() {
+        return price;
+    }
 }
 class PizzaCustomer
 {
+    private final String name;
+
+    private final ArrayList<PizzaOrder> pizzaArray = new ArrayList<>();
     PizzaCustomer(String _name)
     {
         name = _name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void AddOrder(PizzaInfo pizza , int quantity)
+    {
+        pizzaArray.add(new PizzaOrder(pizza.getName(), pizza.getPrice(), quantity));
     }
 
     public void DisplayOrder()
     {
         System.out.println(name + ", you have order");
         double finalPrice = 0.0;
-        for(int i =0;i< pizzaArray.size() ; ++ i)
-        {
-            double totalPrice =  pizzaArray.get(i).price * pizzaArray.get(i).quantity;
-            System.out.println(pizzaArray.get(i).name + ":$" + DoubleStringFormat(pizzaArray.get(i).price) + " x " + pizzaArray.get(i).quantity + " = $" + DoubleStringFormat(totalPrice));
+        for (PizzaOrder pizzaOrder : pizzaArray) {
+            double totalPrice = pizzaOrder.getPrice() * pizzaOrder.getQuantity();
+            System.out.println(pizzaOrder.getName() + ":$" + DoubleStringFormat(pizzaOrder.getPrice()) + " x " + pizzaOrder.getQuantity() + " = $" + DoubleStringFormat(totalPrice));
             finalPrice += totalPrice;
         }
         System.out.println("Total $" + finalPrice);
@@ -82,11 +114,7 @@ class PizzaCustomer
             return String.format("%s",value);
     }
 
-     String name ="";
-     ArrayList<PizzaOrder> pizzaArray = new ArrayList<PizzaOrder>();
-
 }
-
 
 public class Lab4Q3
 {
@@ -95,16 +123,15 @@ public class Lab4Q3
     {
         Scanner userInput = new Scanner(System.in).useDelimiter("\n");
         PizzaMenu menu = new PizzaMenu();
-        boolean run = true;
 
-        String msg = "";
+        String msg;
         System.out.println("Welcome! How can i address you?");
         PizzaCustomer customer = new PizzaCustomer(userInput.next());
-        System.out.println(customer.name + " below is our pizza menu");
+        System.out.println(customer.getName() + " below is our pizza menu");
         menu.DisplayMenu();
         System.out.println("Please type the index follow by space and then follow by quantity");
         msg = userInput.next();
-        String[] data = msg.split("[ ]");
+        String[] data = msg.split(" ");
 
         for(int i = 0; i < data.length ; i+= 2)
         {
@@ -117,7 +144,7 @@ public class Lab4Q3
             {
                 quantity = Integer.parseInt(data[i + 1]);
             }
-            catch(NumberFormatException ex)
+            catch(NumberFormatException ignored)
             {
 
             }
@@ -130,7 +157,7 @@ public class Lab4Q3
             {
                 number = Integer.parseInt(data[i]);
             }
-            catch(NumberFormatException ex)
+            catch(NumberFormatException ignored)
             {
 
             }
@@ -140,12 +167,11 @@ public class Lab4Q3
 
             int index = number - 1;
 
-            if(index > menu.pizzaArray.size())
+            if(index > menu.getPizzaArray().size())
                 continue;
 
             // processing
-
-            customer.pizzaArray.add(new PizzaOrder(menu.pizzaArray.get(index).name, menu.pizzaArray.get(index).price, quantity));
+            customer.AddOrder(menu.getPizzaArray().get(index),quantity);
 
         }
         // possible make as a loop that user can edit order again .
