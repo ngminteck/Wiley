@@ -25,6 +25,12 @@ class SearchHashCode
 
     @Override
     public int hashCode() {
+        return name != null ? name.hashCode() : 0;
+    }
+
+    /*
+    @Override
+    public int hashCode() {
         int result = 0;
         StringBuilder stringNo = new StringBuilder();
         for(int i = 0; i < name.length() ; ++i)
@@ -52,6 +58,8 @@ class SearchHashCode
 
         return result;
     }
+    */
+
 }
 
 
@@ -62,7 +70,7 @@ public class Lab7Q3 {
     {
         ArrayList<SearchHashCode>  arr1 = new ArrayList<>();
 
-        for(int i = 0 ; i < 99 ; ++i)
+        for(int i = 0 ; i < 100 ; ++i)
         {
             StringBuilder name = new StringBuilder();
             for(int j = 0 ; j < 3 ; ++ j)
@@ -77,7 +85,7 @@ public class Lab7Q3 {
 
         }
 
-        arr1.add(new SearchHashCode("abc"));
+
 
         long time = System.nanoTime();
 
@@ -85,7 +93,7 @@ public class Lab7Q3 {
 
         for (int i = 0; i < arr1.size(); ++i)
         {
-            if(arr1.get(i).getName().equals(arr1.get(arr1.size() - 1).getName()))
+            if(arr1.get(i).getName().equals(arr1.get(0).getName()))
             {
                 System.out.println("No hash time taken:" + (System.nanoTime() -  time));
                 break;
@@ -94,7 +102,7 @@ public class Lab7Q3 {
         time = System.nanoTime();
         for (int i = 0; i < arr1.size(); ++i)
         {
-            if(arr1.get(i).hashCode() == arr1.get(arr1.size()-1).hashCode())
+            if(arr1.get(i).hashCode() == arr1.get(0).hashCode())
             {
                 System.out.println("Hash time taken:" + (System.nanoTime() -  time));
                 break;
