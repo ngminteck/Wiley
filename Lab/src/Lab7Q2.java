@@ -2,12 +2,18 @@ class JavaClassObj
 {
     private final int id;
     private final String name;
-
     public JavaClassObj(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "JavaClassObj{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -18,7 +24,6 @@ class JavaClassObj
         if (id != that.id) return false;
         return name != null ? name.equals(that.name) : that.name == null;
     }
-
     @Override
     // base on first 3 letter of the name and generate ascii number
     // no a good way to respresent just for this lab purpose
@@ -52,7 +57,6 @@ class JavaClassObj
     }
 
 }
-
 public class Lab7Q2 {
     public static void main(String[] args)
     {
