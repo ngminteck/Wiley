@@ -28,37 +28,6 @@ class SearchHashCode
         return name != null ? name.hashCode() : 0;
     }
 
-    /*
-    @Override
-    public int hashCode() {
-        int result = 0;
-        StringBuilder stringNo = new StringBuilder();
-        for(int i = 0; i < name.length() ; ++i)
-        {
-            if( i == 3)
-                break;
-
-            int no = name.charAt(i);
-            int digit = String.valueOf(no).length();
-
-            if(digit == 1)
-                stringNo.append("00").append(no);
-            else if (digit == 2)
-                stringNo.append("0").append(no);
-            else
-                stringNo.append(no);
-        }
-
-        try{
-            result = Integer.parseInt(stringNo.toString());
-
-        }catch(NumberFormatException ignored){
-
-        }
-
-        return result;
-    }
-    */
 
 }
 
@@ -70,10 +39,10 @@ public class Lab7Q3 {
     {
         ArrayList<SearchHashCode>  arr1 = new ArrayList<>();
 
-        for(int i = 0 ; i < 100 ; ++i)
+        for(int i = 0 ; i < 1000 ; ++i)
         {
             StringBuilder name = new StringBuilder();
-            for(int j = 0 ; j < 3 ; ++ j)
+            for(int j = 0 ; j < 10 ; ++ j)
             {
                 int asciiNo = 1 + (int) (Math.random() * ((127 + 1)));
                 char c = (char) asciiNo;
