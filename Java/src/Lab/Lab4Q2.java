@@ -90,8 +90,14 @@ class Calulator
         String print = DoubleStringFormat(x) + " / " + DoubleStringFormat(y) + " = ";
         double result = 0;
         // check div 0
-        if(y != 0)
+        try {
             result = x / y;
+        }
+        // ignore because for user / 0 is not errror, but for computer science or math people divide zero is an error
+        catch(ArithmeticException ignored)
+        {
+            System.out.println(ignored.getMessage());
+        }
         return print + DoubleStringFormat(result);
     }
 

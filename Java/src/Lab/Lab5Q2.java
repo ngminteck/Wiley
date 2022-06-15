@@ -13,8 +13,14 @@ class AdvanceCaluator extends Calulator
         int  wholeNumber = 0;
         int remainder;
         // check div 0
-        if(y != 0)
-            wholeNumber =(int) (x / y);
+        try {
+            wholeNumber = (int) (x / y);
+        }
+        // ignore because for user / 0 is not errror, but for computer science or math people divide zero is an error
+        catch(ArithmeticException ignored)
+        {
+            System.out.println(ignored.getMessage());
+        }
 
         remainder = (int)(x % y);
 

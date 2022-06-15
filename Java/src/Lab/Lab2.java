@@ -39,6 +39,7 @@ class SortArray
 
 public class Lab2
 {
+    // no point do try catch here because scanner has function check it already
     public static void Question1()
     {
         Scanner userInput = new Scanner(System.in);
@@ -220,11 +221,11 @@ public class Lab2
 
     public static void main(String[] args)
     {
-        //Question1();
+        Question1();
         //Question2();
         //Question3();
         //Question4();
         //Question5();
-        Question6();
+        //Question6();
     }
 }
