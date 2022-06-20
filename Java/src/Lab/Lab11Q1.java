@@ -14,6 +14,7 @@ public class Lab11Q1 {
         mynum.stream().filter((i) -> {return i % 2 ==0;}).forEach(i -> System.out.println(i));
         System.out.println("Odd");
         mynum.stream().filter((i) -> {return i % 2 !=0;}).forEach(i -> System.out.println(i));
+
     }
 
 }
