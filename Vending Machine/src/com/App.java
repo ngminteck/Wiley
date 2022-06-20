@@ -1,5 +1,6 @@
 package com;
 
+import com.sg.controller.VendingMachineController;
 import com.sg.dao.Inventory;
 import com.sg.dao.InventoryFileImpl;
 import com.sg.ui.UserIO;
@@ -14,6 +15,10 @@ public class App
         VendingMachineView myView = new VendingMachineView(myIO);
 
         Inventory myInventory = new InventoryFileImpl();
+
+        VendingMachineController controller = new VendingMachineController(myView,myInventory);
+
+        controller.Run();
 
     }
 }

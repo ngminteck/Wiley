@@ -9,12 +9,10 @@ import java.util.Map;
 public class Money {
 
     private MoneyType moneyType;
-    private String string;
     private BigDecimal value;
 
-    public Money(MoneyType moneyType, String string, BigDecimal value) {
+    public Money(MoneyType moneyType, BigDecimal value) {
         this.moneyType = moneyType;
-        this.string = string;
         this.value = value;
     }
 
@@ -24,14 +22,6 @@ public class Money {
 
     public void setMoneyType(MoneyType moneyType) {
         this.moneyType = moneyType;
-    }
-
-    public String getString() {
-        return string;
-    }
-
-    public void setString(String string) {
-        this.string = string;
     }
 
     public BigDecimal getValue() {
@@ -46,7 +36,6 @@ public class Money {
     public String toString() {
         return "Money{" +
                 "moneyType=" + moneyType +
-                ", string='" + string + '\'' +
                 ", value=" + value +
                 '}';
     }
