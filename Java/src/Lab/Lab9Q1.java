@@ -79,11 +79,8 @@ class Account
 
     public void PrintExpiredCardInfo()
     {
-        for (Card card : cards) {
-            if (card.GoingExpired()) {
-                System.out.println("AccountID:" + accountID + " Holder Name:" + customerName + "'s CardID:" + card.getId() + " Expire Date:" + card.getExpireDate() + " is due within 7 days");
-            }
-        }
+        cards.stream().filter(Card::GoingExpired).forEach(i -> System.out.println("AccountID:" + accountID + " Holder Name:" + customerName + "'s CardID:" + i.getId() + " Expire Date:" + i.getExpireDate() + " is due within 7 days"));
+
     }
 
 
@@ -138,10 +135,7 @@ class Bank
 
     public void UpdateAllExpiredCard()
     {
-        for (Account customerAccount : customerAccounts) {
-            customerAccount.getCards().replaceAll(o -> o.GoingExpired() ? NewGenerateCard(o) : o);
-
-        }
+        customerAccounts.forEach(i -> {i.getCards().replaceAll(o -> o.GoingExpired() ? NewGenerateCard(o) : o);});
     }
 
     public void PrintAllInfo()
@@ -149,9 +143,7 @@ class Bank
         for (Account account : customerAccounts) {
             System.out.println("AccountID:" + account.getAccountID() + " Holder Name:" + account.getCustomerName());
             LinkedList<Card> cards = account.getCards();
-            for (Card card : cards) {
-                System.out.println("CardID:" + card.getId() + " Expire Date:" + card.getExpireDate());
-            }
+            cards.forEach(i -> System.out.println("CardID:" + i.getId() + " Expire Date:" + i.getExpireDate()) );
             System.out.println();
         }
     }
