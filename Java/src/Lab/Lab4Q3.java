@@ -9,6 +9,7 @@ class PizzaInfo
 {
     private final String name ;
     private final double price;
+
     PizzaInfo(String _name, double _price)
     {
         name = _name;
@@ -137,7 +138,7 @@ class PizzaCasher
     {
         LocalDate currentDate = LocalDate.now();
         ++OrderID;
-
+        // should generate the ID to customer recipt, for this lab  just ignore it.
         String currentDatePlusOrderID = "" + OrderID + " " + currentDate;
         orderList.put(currentDatePlusOrderID,pizzaCustomer);
 
