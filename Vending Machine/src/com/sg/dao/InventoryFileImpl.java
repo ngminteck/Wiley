@@ -2,7 +2,6 @@ package com.sg.dao;
 
 import com.sg.dto.Item;
 import com.sg.dto.Money;
-import com.sg.dto.MoneyType;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
@@ -18,21 +17,21 @@ public class InventoryFileImpl implements Inventory {
 
    public InventoryFileImpl()
    {
-      moneys.put(new Money(MoneyType.TWO_DOLLAR,new BigDecimal("2.00")),0);
-      moneys.put(new Money(MoneyType.ONE_DOLLAR,new BigDecimal("1.00")),0);
-      moneys.put(new Money(MoneyType.FIFTY_CENT,new BigDecimal("0.50")),0);
-      moneys.put(new Money(MoneyType.TWENTY_CENT,new BigDecimal("0.20")),0);
-      moneys.put(new Money(MoneyType.TEN_CENT,new BigDecimal("0.10")),0);
-      moneys.put(new Money(MoneyType.FIVE_CENT,new BigDecimal("0.05")),0);
-      moneys.put(new Money(MoneyType.ONE_CENT,new BigDecimal("0.01")),0);
+      moneys.put(Money.TWO_DOLLAR,0);
+      moneys.put(Money.ONE_DOLLAR,0);
+      moneys.put(Money.FIFTY_CENT,0);
+      moneys.put(Money.TWENTY_CENT,0);
+      moneys.put(Money.TEN_CENT,0);
+      moneys.put(Money.FIVE_CENT,0);
+      moneys.put(Money.ONE_CENT,0);
 
-      userInputMoneys.put(new Money(MoneyType.TWO_DOLLAR,new BigDecimal("2.00")),0);
-      userInputMoneys.put(new Money(MoneyType.ONE_DOLLAR,new BigDecimal("1.00")),0);
-      userInputMoneys.put(new Money(MoneyType.FIFTY_CENT,new BigDecimal("0.50")),0);
-      userInputMoneys.put(new Money(MoneyType.TWENTY_CENT,new BigDecimal("0.20")),0);
-      userInputMoneys.put(new Money(MoneyType.TEN_CENT,new BigDecimal("0.10")),0);
-      userInputMoneys.put(new Money(MoneyType.FIVE_CENT,new BigDecimal("0.05")),0);
-      userInputMoneys.put(new Money(MoneyType.ONE_CENT,new BigDecimal("0.01")),0);
+      userInputMoneys.put(Money.TWO_DOLLAR,0);
+      userInputMoneys.put(Money.ONE_DOLLAR,0);
+      userInputMoneys.put(Money.FIFTY_CENT,0);
+      userInputMoneys.put(Money.TWENTY_CENT,0);
+      userInputMoneys.put(Money.TEN_CENT,0);
+      userInputMoneys.put(Money.FIVE_CENT,0);
+      userInputMoneys.put(Money.ONE_CENT,0);
    }
 
    // items & money for change

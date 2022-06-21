@@ -1,58 +1,64 @@
 package com.sg.dto;
 
-import javafx.util.Pair;
-
 import java.math.BigDecimal;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
-public class Money {
+public enum Money {
+    TWO_DOLLAR(new BigDecimal("2.00"))
+            {
+                public String toString() {
+                    return "two dollar";
+                }
+            },
+    ONE_DOLLAR(new BigDecimal("1.00"))
+            {
+                public String toString() {
+                    return "one dollar";
+                }
+            },
+    FIFTY_CENT(new BigDecimal("0.50"))
+            {
+                public String toString() {
+                    return "fifty cent";
+                }
+            },
+    TWENTY_CENT(new BigDecimal("0.20"))
+            {
+                @Override
+                public String toString() {
+                    return "twenty cent";
+                }
+            },
+    TEN_CENT(new BigDecimal("0.10"))
+            {
+                @Override
+                public String toString() {
+                    return "ten cent";
+                }
+            },
+    FIVE_CENT(new BigDecimal("0.50"))
+            {
+                @Override
+                public String toString() {
+                    return "five cent";
+                }
+            },
+    ONE_CENT(new BigDecimal("0.10"))
+            {
+                @Override
+                public String toString() {
+                    return "one cent";
+                }
 
-    private MoneyType moneyType;
-    private BigDecimal value;
+            };
 
-    public Money(MoneyType moneyType, BigDecimal value) {
-        this.moneyType = moneyType;
+    BigDecimal value;
+
+    Money(BigDecimal value) {
         this.value = value;
-    }
-
-    public MoneyType getMoneyType() {
-        return moneyType;
-    }
-
-    public void setMoneyType(MoneyType moneyType) {
-        this.moneyType = moneyType;
     }
 
     public BigDecimal getValue() {
         return value;
     }
 
-    public void setValue(BigDecimal value) {
-        this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        return "Money{" +
-                "moneyType=" + moneyType +
-                ", value=" + value +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Money money = (Money) o;
-
-        return moneyType == money.moneyType;
-    }
-
-    @Override
-    public int hashCode() {
-        return moneyType.hashCode();
-    }
 }
-
