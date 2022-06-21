@@ -1,26 +1,22 @@
 package com.sg.dto;
 
 public enum MoneyType {
-    ONE_CENT
+    TWO_DOLLAR
             {
-                @Override
                 public String toString() {
-                    return "one cent";
+                    return "two dollar";
                 }
-
             },
-    FIVE_CENT
+    ONE_DOLLAR
             {
-        @Override
-        public String toString() {
-            return "five cent";
-        }
-    },
-    TEN_CENT
-            {
-                @Override
                 public String toString() {
-                    return "ten cent";
+                    return "one dollar";
+                }
+            },
+    FIFTY_CENT
+            {
+                public String toString() {
+                    return "fifty cent";
                 }
             },
     TWENTY_CENT
@@ -30,35 +26,27 @@ public enum MoneyType {
                     return "twenty cent";
                 }
             },
-    FIFTY_CENT
+    TEN_CENT
             {
+                @Override
                 public String toString() {
-                    return "fifty cent";
+                    return "ten cent";
                 }
             },
-    ONE_DOLLAR
+    FIVE_CENT
             {
+                @Override
                 public String toString() {
-                    return "one dollar";
+                    return "five cent";
                 }
             },
-    TWO_DOLLAR
+    ONE_CENT
             {
+                @Override
                 public String toString() {
-                    return "two dollar";
+                    return "one cent";
                 }
-             },
-    FIVE_DOLLAR
-            {
-                public String toString() {
-                    return "five dollar";
-                }
-            },
-    TEN_DOLLAR
-            {
-                public String toString() {
-                    return "ten dollar";
-                }
+
             }
 
 }

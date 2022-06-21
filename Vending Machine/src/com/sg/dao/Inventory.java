@@ -5,8 +5,7 @@ import com.sg.dto.MoneyType;
 
 public interface Inventory {
 
-    Integer GetMoneyTypeCount(MoneyType moneyType);
-    void SetMoneyTypeCount(MoneyType moneyType);
+
 
 
 }
