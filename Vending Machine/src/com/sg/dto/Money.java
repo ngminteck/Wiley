@@ -1,6 +1,9 @@
 package com.sg.dto;
 
 import java.math.BigDecimal;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 
 public enum Money {
     TWO_DOLLAR(new BigDecimal("2.00"))
@@ -52,14 +55,27 @@ public enum Money {
 
             };
 
-    final BigDecimal value;
+    final BigDecimal moneyValue;
 
-    Money(BigDecimal value) {
-        this.value = value;
+    private static final Map<BigDecimal,Money> valueToEnum = new HashMap<>();
+
+    Money(BigDecimal moneyValue) {
+        this.moneyValue = moneyValue;
     }
 
-    public BigDecimal getValue() {
-        return value;
+    public BigDecimal getMoneyValue() {
+        return moneyValue;
+    }
+
+    static {
+        for (Money enumType : EnumSet.allOf(Money.class)) {
+            valueToEnum.put(enumType.moneyValue, enumType);
+        }
+    }
+
+    public static Money GetEnumByMoneyValue(BigDecimal moneyValue)
+    {
+        return valueToEnum.get(moneyValue);
     }
 
 }

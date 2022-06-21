@@ -4,8 +4,12 @@ import com.sg.dao.InventoryFileImpl;
 import com.sg.dto.Item;
 import com.sg.dto.Money;
 import com.sg.ui.VendingMachineView;
+import javafx.util.Pair;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class VendingMachineController {
 
@@ -43,18 +47,29 @@ public class VendingMachineController {
     {
         while (true)
         {
-            int options = view.PrintBuyItemOrStockUp();
+            int optionsMainMenu = view.PrintMainMenu();
 
-            if(options == 1)
+            if(optionsMainMenu == 1)
             {
-                view.StartBanner("Display Item");
-
-                view.CloseBanner();
+                BuyMenu();
             }
             else
             {
 
             }
+        }
+    }
+
+    private void BuyMenu()
+    {
+        int buyOptions = view.PrintBuyMenu(inventory.getItems(),inventory.getUserInputMoneys());
+
+        if(buyOptions == 1)
+        {
+
+        } else if (buyOptions == 2)
+        {
+
         }
     }
 }

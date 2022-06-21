@@ -2,20 +2,22 @@ package com.sg.dao;
 
 import com.sg.dto.Item;
 import com.sg.dto.Money;
+import javafx.util.Pair;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 // Inventory have a lot of type, like digital , coupon or the item itself
 // payment have a lot mode can be cash payment or card payment etc
 public class InventoryFileImpl implements Inventory, Cash {
 
     // LinkedHashMap faster iterator to change the count value which represent the value
-   private Map<Item, Integer> items = new LinkedHashMap<>();
+   private Set<Pair<Item,Integer>> items = new LinkedHashSet<>();
    private final Map<Money, Integer> moneys = new LinkedHashMap<>();
    private final Map<Money, Integer> userInputMoneys = new LinkedHashMap<>();
-
    private final BigDecimal maxChangeAmount;
 
    public InventoryFileImpl(BigDecimal maxChangeAmount)
@@ -24,11 +26,12 @@ public class InventoryFileImpl implements Inventory, Cash {
       InitMachineMoneyLinkHashMap();
       this.maxChangeAmount = maxChangeAmount;
    }
-   public Map<Item, Integer> getItems() {
+
+   public Set<Pair<Item, Integer>> getItems() {
       return items;
    }
 
-   public void setItems(Map<Item, Integer> items) {
+   public void setItems(Set<Pair<Item, Integer>> items) {
       this.items = items;
    }
 
@@ -124,7 +127,8 @@ public class InventoryFileImpl implements Inventory, Cash {
    }
    public void PreAddItemReplaceIfExisted(Item item, Integer count)
    {
-      items.put(item,count);
+      items.add(new Pair<>(item,count));
    }
+
 
 }

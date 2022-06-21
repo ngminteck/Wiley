@@ -1,6 +1,12 @@
 package com.sg.ui;
 
 import com.sg.dto.Item;
+import com.sg.dto.Money;
+import javafx.util.Pair;
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 public class VendingMachineView {
     private UserIO io;
@@ -11,22 +17,22 @@ public class VendingMachineView {
 
     private void PrintSeprater()
     {
-        System.out.println("============================================================");
+        System.out.println("================================================================================");
     }
-    public void StartBanner(String header)
+    private void StartBanner(String header)
     {
         PrintSeprater();
         System.out.println(header);
         PrintSeprater();
     }
 
-    public void CloseBanner()
+    private void CloseBanner()
     {
         PrintSeprater();
         System.out.println();
     }
 
-    public int PrintBuyItemOrStockUp()
+    public int PrintMainMenu()
     {
         StartBanner("Main Menu");
         int result = io.BuyItemOrStockUpMenu();
@@ -34,9 +40,21 @@ public class VendingMachineView {
         return result;
     }
 
-    public void DisplayInventoryItem(int index, Item item)
+    public int PrintBuyMenu(Set<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
     {
-
+        StartBanner("Buy Menu");
+        int result = io.BuyItemMenu(items, userInputMoney);
+        CloseBanner();
+        return result;
     }
+
+    public void InsertMoneyMenu(Map<Money, Integer> userInputMoney)
+    {
+        StartBanner("Insert Money Menu");
+        io.InsertMoneyMenu(userInputMoney);
+        CloseBanner();
+    }
+
+
 
 }
