@@ -7,24 +7,66 @@ import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class InventoryFileImpl implements Inventory {
+// Inventory have a lot of type, like digital , coupon or the item itself
+// payment have a lot mode can be cash payment or card payment etc
+public class InventoryFileImpl implements Inventory, Cash {
 
     // LinkedHashMap faster iterator to change the count value which represent the value
-   private final Map<Item, Integer> items = new LinkedHashMap<>();
+   private Map<Item, Integer> items = new LinkedHashMap<>();
    private final Map<Money, Integer> moneys = new LinkedHashMap<>();
+   private final Map<Money, Integer> userInputMoneys = new LinkedHashMap<>();
 
-   private Map<Money, Integer> userInputMoneys = new LinkedHashMap<>();
+   private final BigDecimal maxChangeAmount;
 
-   public InventoryFileImpl()
+   public InventoryFileImpl(BigDecimal maxChangeAmount)
    {
-      moneys.put(Money.TWO_DOLLAR,0);
-      moneys.put(Money.ONE_DOLLAR,0);
-      moneys.put(Money.FIFTY_CENT,0);
-      moneys.put(Money.TWENTY_CENT,0);
-      moneys.put(Money.TEN_CENT,0);
-      moneys.put(Money.FIVE_CENT,0);
-      moneys.put(Money.ONE_CENT,0);
+      InitUserInputMoneyLinkHashMap();
+      InitMachineMoneyLinkHashMap();
+      this.maxChangeAmount = maxChangeAmount;
+   }
+   public Map<Item, Integer> getItems() {
+      return items;
+   }
 
+   public void setItems(Map<Item, Integer> items) {
+      this.items = items;
+   }
+
+   public Map<Money, Integer> getMoneys() {
+      return moneys;
+   }
+
+   public Map<Money, Integer> getUserInputMoneys() {
+      return userInputMoneys;
+   }
+
+   @Override
+   public void AddNewItemProduct(Item item) {
+
+   }
+
+   @Override
+   public void AddNewItemProduct(Item item, Integer count) {
+
+   }
+
+   @Override
+   public void RemoveItemProduct(Item item) {
+
+   }
+
+   @Override
+   public void AddItemCount(Item item, Integer count) {
+
+   }
+
+   @Override
+   public void RemoveItemCount(Item item, Integer count) {
+
+   }
+
+   @Override
+   public void InitUserInputMoneyLinkHashMap() {
       userInputMoneys.put(Money.TWO_DOLLAR,0);
       userInputMoneys.put(Money.ONE_DOLLAR,0);
       userInputMoneys.put(Money.FIFTY_CENT,0);
@@ -34,16 +76,55 @@ public class InventoryFileImpl implements Inventory {
       userInputMoneys.put(Money.ONE_CENT,0);
    }
 
-   // items & money for change
-   public void ReadFile()
-   {
+   @Override
+   public void InitMachineMoneyLinkHashMap() {
+      moneys.put(Money.TWO_DOLLAR,0);
+      moneys.put(Money.ONE_DOLLAR,0);
+      moneys.put(Money.FIFTY_CENT,0);
+      moneys.put(Money.TWENTY_CENT,0);
+      moneys.put(Money.TEN_CENT,0);
+      moneys.put(Money.FIVE_CENT,0);
+      moneys.put(Money.ONE_CENT,0);
+   }
+
+   @Override
+   public BigDecimal GetMaxChangeAmount() {
+      return maxChangeAmount;
+   }
+
+
+   @Override
+   public BigDecimal CountTotalUserAmount() {
+      return null;
+   }
+
+   @Override
+   public void AddUserAmountIntoMachine() {
 
    }
 
-   public void SaveFile()
-   {
+   @Override
+   public void ChangeFromUserInput() {
 
    }
 
+   @Override
+   public Boolean ChangeFromMachine(BigDecimal amountNeed) {
+      return null;
+   }
+
+   @Override
+   public Integer CheckMoneyTypeCount(Money money) {
+      return null;
+   }
+
+   public void PreAddMoneyReplace(Money moneyType, Integer count)
+   {
+      userInputMoneys.put(moneyType,count);
+   }
+   public void PreAddItemReplaceIfExisted(Item item, Integer count)
+   {
+      items.put(item,count);
+   }
 
 }

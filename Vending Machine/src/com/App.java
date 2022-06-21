@@ -7,6 +7,8 @@ import com.sg.ui.UserIO;
 
 import com.sg.ui.VendingMachineView;
 
+import java.math.BigDecimal;
+
 public class App
 {
     public static void main(String[] args)
@@ -14,10 +16,11 @@ public class App
         UserIO myIO = new UserIO();
         VendingMachineView myView = new VendingMachineView(myIO);
 
-        Inventory myInventory = new InventoryFileImpl();
+        InventoryFileImpl myInventory = new InventoryFileImpl(new BigDecimal("2.00"));
 
         VendingMachineController controller = new VendingMachineController(myView,myInventory);
-
+        // uncomment Init if want hardcore add item and money into the vending machine
+        controller.Init();
         controller.Run();
 
     }

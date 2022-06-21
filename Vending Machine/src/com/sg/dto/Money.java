@@ -8,6 +8,7 @@ public enum Money {
                 public String toString() {
                     return "two dollar";
                 }
+
             },
     ONE_DOLLAR(new BigDecimal("1.00"))
             {
@@ -51,7 +52,7 @@ public enum Money {
 
             };
 
-    BigDecimal value;
+    final BigDecimal value;
 
     Money(BigDecimal value) {
         this.value = value;
