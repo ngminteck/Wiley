@@ -22,7 +22,9 @@ public class VendingMachineController {
 
             if(options == 1)
             {
+                view.StartBanner("Display Item");
 
+                view.CloseBanner();
             }
             else
             {

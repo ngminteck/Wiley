@@ -1,5 +1,7 @@
 package com.sg.ui;
 
+import com.sg.dto.Item;
+
 public class VendingMachineView {
     private UserIO io;
 
@@ -7,12 +9,32 @@ public class VendingMachineView {
         this.io = io;
     }
 
-    public int PrintBuyItemOrStockUp()
+    private void PrintSeprater()
     {
-        return io.BuyItemOrStockUpMenu();
+        System.out.println("============================================================");
+    }
+    public void StartBanner(String header)
+    {
+        PrintSeprater();
+        System.out.println(header);
+        PrintSeprater();
     }
 
-    public void DisplayInventory()
+    public void CloseBanner()
+    {
+        PrintSeprater();
+        System.out.println();
+    }
+
+    public int PrintBuyItemOrStockUp()
+    {
+        StartBanner("Main Menu");
+        int result = io.BuyItemOrStockUpMenu();
+        CloseBanner();
+        return result;
+    }
+
+    public void DisplayInventoryItem(int index, Item item)
     {
 
     }

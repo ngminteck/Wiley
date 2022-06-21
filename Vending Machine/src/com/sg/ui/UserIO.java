@@ -10,8 +10,10 @@ public class UserIO {
         sc = new Scanner(System.in).useDelimiter("\n");
     }
 
+
     public int BuyItemOrStockUpMenu()
     {
+
         int userOption;
         do {
             userOption = 0;
@@ -29,8 +31,9 @@ public class UserIO {
             }
         }
         while (userOption != 1 && userOption != 2);
-
         return userOption;
     }
+
+
 
 }
