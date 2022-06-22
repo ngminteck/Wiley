@@ -39,14 +39,14 @@ public enum Money {
                     return "ten cent";
                 }
             },
-    FIVE_CENT(new BigDecimal("0.50"))
+    FIVE_CENT(new BigDecimal("0.05"))
             {
                 @Override
                 public String toString() {
                     return "five cent";
                 }
             },
-    ONE_CENT(new BigDecimal("0.10"))
+    ONE_CENT(new BigDecimal("0.01"))
             {
                 @Override
                 public String toString() {

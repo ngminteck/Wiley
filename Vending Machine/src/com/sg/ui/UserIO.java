@@ -56,6 +56,7 @@ public class UserIO {
             userOption = -1;
 
             items.forEach(i-> System.out.println(i.getKey().getName() +" $"+ i.getKey().getCost()));
+            System.out.println();
 
             currentTotalValue = new BigDecimal("0.00");
             for (Money key : keys)
@@ -65,7 +66,7 @@ public class UserIO {
             System.out.println("Current insert value:$" + currentTotalValue );
 
             System.out.println("0:Exit to main menu.");
-            System.out.println("1:Insert coin.");
+            System.out.println("1:Insert money.");
             System.out.println("2:Buy Item.");
             System.out.println("Type the number options.");
             if(sc.hasNextInt()) {
@@ -88,10 +89,8 @@ public class UserIO {
     {
         Set<Money> keys = userInputMoney.keySet();
         BigDecimal currentTotalValue = new BigDecimal("0.00");
-        int counter = 1;
         for (Money key : keys)
         {
-            System.out.println(counter +":" + key.toString());
             currentTotalValue = currentTotalValue.add(BigDecimal.valueOf( userInputMoney.get(key) ).multiply( key.getMoneyValue()));
         }
         System.out.println("Current insert value:$" + currentTotalValue );
@@ -100,7 +99,7 @@ public class UserIO {
         System.out.println("Type 0 alone to exit to main menu." );
         String msg = sc.next();
 
-        if(msg.charAt(0) == '0')
+        if(msg.length() == 1 && msg.charAt(0) == '0')
             return 0;
 
         String[] data = msg.split(" ");
@@ -132,10 +131,19 @@ public class UserIO {
             if(moneyEnum == null)
                 continue;
 
+            System.out.println("Inserting " + quantity + " " + moneyEnum.toString() + " into the machine.");
+
             Integer newCount =  userInputMoney.get(moneyEnum) + quantity;
             userInputMoney.put(moneyEnum,newCount);
 
         }
+
+        currentTotalValue = new BigDecimal("0.00");
+        for (Money key : keys)
+        {
+            currentTotalValue = currentTotalValue.add(BigDecimal.valueOf( userInputMoney.get(key) ).multiply( key.getMoneyValue()));
+        }
+        System.out.println("Current insert value:$" + currentTotalValue );
         return 1;
     }
 
