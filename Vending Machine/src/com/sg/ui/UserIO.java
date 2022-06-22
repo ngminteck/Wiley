@@ -1,28 +1,55 @@
 package com.sg.ui;
 
-import com.sg.dto.Item;
 import com.sg.dto.Money;
-import javafx.util.Pair;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class UserIO {
 
     private final Scanner sc;
+
+    private final Map<Money, Integer> userInputMoneys = new LinkedHashMap<>();
     public UserIO()
     {
         sc = new Scanner(System.in).useDelimiter("\n");
+        InitUserInputMoneyLinkHashMap();
     }
 
+    public Map<Money, Integer> getUserInputMoneys() {
+        return userInputMoneys;
+    }
+
+    public void InitUserInputMoneyLinkHashMap() {
+        userInputMoneys.put(Money.TWO_DOLLAR,0);
+        userInputMoneys.put(Money.ONE_DOLLAR,0);
+        userInputMoneys.put(Money.FIFTY_CENT,0);
+        userInputMoneys.put(Money.TWENTY_CENT,0);
+        userInputMoneys.put(Money.TEN_CENT,0);
+        userInputMoneys.put(Money.FIVE_CENT,0);
+        userInputMoneys.put(Money.ONE_CENT,0);
+    }
+    public BigDecimal CountUserInputMoney()
+    {
+        BigDecimal currentTotalValue = new BigDecimal("0.00");
+        Set<Money> keys = userInputMoneys.keySet();
+        for (Money key : keys)
+        {
+            currentTotalValue = currentTotalValue.add(BigDecimal.valueOf( userInputMoneys.get(key) ).multiply( key.getMoneyValue()));
+        }
+        return currentTotalValue;
+    }
+
+    public void AddUserInputMoney(Money money, Integer count)
+    {
+        Integer newCount =  userInputMoneys.get(money) + count;
+        System.out.println("Inserting " + count + " " + money + " into the machine.");
+        userInputMoneys.put(money,newCount);
+    }
 
     public int BuyItemOrStockUpMenu()
     {
-        System.out.println("Welcome to my vending machine.");
         int userOption;
         do {
             userOption = -1;
@@ -47,32 +74,20 @@ public class UserIO {
     }
 
 
-    public int BuyMenu(ArrayList<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
+    public int BuyMenu(StringBuilder msg, int vaildChoiceLimit)
     {
-
-        Set<Money> keys = userInputMoney.keySet();
-        BigDecimal currentTotalValue;
         int userOption;
         do {
             userOption = -1;
 
-            items.forEach(i-> System.out.println((items.indexOf(i) + 1) +":" + i.getKey().getName() +" $"+ i.getKey().getCost()));
-            System.out.println();
+            System.out.println(msg);
+            System.out.println("Current insert value:$" + CountUserInputMoney());
 
-            currentTotalValue = new BigDecimal("0.00");
-            for (Money key : keys)
-            {
-                currentTotalValue = currentTotalValue.add(BigDecimal.valueOf( userInputMoney.get(key) ).multiply( key.getMoneyValue()));
-            }
-            System.out.println("Current insert value:$" + currentTotalValue );
 
-            System.out.println("0:Cancel and exit to main menu.");
-            System.out.println((items.size() + 1) + ":Insert money.");
-            System.out.println("Type the number options.");
             if(sc.hasNextInt()) {
                 userOption = sc.nextInt();
 
-                if(userOption < 0 && userOption > (items.size() + 1))
+                if(userOption < 0 && userOption > vaildChoiceLimit)
                     System.out.println("Invalid request!");
 
             }
@@ -81,27 +96,17 @@ public class UserIO {
                 System.out.println("Invalid request!");
             }
         }
-        while (userOption < 0 && userOption > (items.size() + 1));
+        while (userOption < 0 && userOption > vaildChoiceLimit);
 
-        int nextOptions = 0;
-        if(userOption == items.size() + 1)
-            nextOptions = 1;
-
-        return nextOptions;
+        return userOption;
     }
 
-    public int InsertMoneyMenu(Map<Money, Integer> userInputMoney)
+    public int InsertMoneyMenu()
     {
-        Set<Money> keys = userInputMoney.keySet();
-        BigDecimal currentTotalValue = new BigDecimal("0.00");
-        for (Money key : keys)
-        {
-            currentTotalValue = currentTotalValue.add(BigDecimal.valueOf( userInputMoney.get(key) ).multiply( key.getMoneyValue()));
-        }
-        System.out.println("Current insert value:$" + currentTotalValue );
         System.out.println("Example: to insert 3 one dollar, type \"1 3\" --[Money Value] [Count]" );
         System.out.println("Example: to insert 2 two dollar and 1 fifty cent, type \"2 2 0.5 1\" or \"0.5 1 2 2\"" );
         System.out.println("Type 0 alone to exit to main menu." );
+        System.out.println("Current insert value:$" + CountUserInputMoney());
         String msg = sc.next();
 
         if(msg.length() == 1 && msg.charAt(0) == '0')
@@ -136,19 +141,10 @@ public class UserIO {
             if(moneyEnum == null)
                 continue;
 
-            System.out.println("Inserting " + quantity + " " + moneyEnum + " into the machine.");
-
-            Integer newCount =  userInputMoney.get(moneyEnum) + quantity;
-            userInputMoney.put(moneyEnum,newCount);
+            AddUserInputMoney(moneyEnum,quantity);
 
         }
-
-        currentTotalValue = new BigDecimal("0.00");
-        for (Money key : keys)
-        {
-            currentTotalValue = currentTotalValue.add(BigDecimal.valueOf( userInputMoney.get(key) ).multiply( key.getMoneyValue()));
-        }
-        System.out.println("Current insert value:$" + currentTotalValue );
+        System.out.println("Current insert value:$" + CountUserInputMoney());
         return 1;
     }
 

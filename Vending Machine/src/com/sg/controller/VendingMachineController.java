@@ -68,11 +68,23 @@ public class VendingMachineController {
     private void BuyMenu()
     {
         while (true) {
-            int options = view.PrintBuyMenu(inventory.getItems(), inventory.getUserInputMoneys());
+            int options = view.PrintBuyMenu(inventory.getItems());
 
             // insert money menu
-            if (options == 1)
-               options = view.InsertMoneyMenu(inventory.getUserInputMoneys());
+            if (options == (inventory.getItems().size() + 1)) {
+
+                options = view.InsertMoneyMenu();
+            }
+
+            // buying stuff
+            if(options > 0 && options <= inventory.getItems().size())
+            {
+                if(SuccessFullyBuy(options))
+                {
+                    options = 0;
+                }
+
+            }
 
             if(options == 0)
             {
@@ -81,5 +93,13 @@ public class VendingMachineController {
             }
 
         }
+    }
+
+    private Boolean SuccessFullyBuy(int options)
+    {
+        int index = options - 1;
+
+        return false;
+
     }
 }

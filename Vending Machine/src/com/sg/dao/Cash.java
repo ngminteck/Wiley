@@ -5,7 +5,6 @@ import com.sg.dto.Money;
 import java.math.BigDecimal;
 
 public interface Cash {
-    void InitUserInputMoneyLinkHashMap();
     void InitMachineMoneyLinkHashMap();
     BigDecimal GetMaxChangeAmount();
     BigDecimal CountTotalUserAmount();

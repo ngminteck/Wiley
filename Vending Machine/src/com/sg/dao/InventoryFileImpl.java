@@ -15,12 +15,11 @@ public class InventoryFileImpl implements Inventory, Cash {
    private ArrayList<Pair<Item,Integer>> items = new ArrayList<>();
    // Money type should be unique
    private final Map<Money, Integer> moneys = new LinkedHashMap<>();
-   private final Map<Money, Integer> userInputMoneys = new LinkedHashMap<>();
+
    private final BigDecimal maxChangeAmount;
 
    public InventoryFileImpl(BigDecimal maxChangeAmount)
    {
-      InitUserInputMoneyLinkHashMap();
       InitMachineMoneyLinkHashMap();
       this.maxChangeAmount = maxChangeAmount;
    }
@@ -37,9 +36,6 @@ public class InventoryFileImpl implements Inventory, Cash {
       return moneys;
    }
 
-   public Map<Money, Integer> getUserInputMoneys() {
-      return userInputMoneys;
-   }
 
    @Override
    public void AddNewItemProduct(Item item) {
@@ -66,16 +62,7 @@ public class InventoryFileImpl implements Inventory, Cash {
 
    }
 
-   @Override
-   public void InitUserInputMoneyLinkHashMap() {
-      userInputMoneys.put(Money.TWO_DOLLAR,0);
-      userInputMoneys.put(Money.ONE_DOLLAR,0);
-      userInputMoneys.put(Money.FIFTY_CENT,0);
-      userInputMoneys.put(Money.TWENTY_CENT,0);
-      userInputMoneys.put(Money.TEN_CENT,0);
-      userInputMoneys.put(Money.FIVE_CENT,0);
-      userInputMoneys.put(Money.ONE_CENT,0);
-   }
+
 
    @Override
    public void InitMachineMoneyLinkHashMap() {
@@ -127,6 +114,8 @@ public class InventoryFileImpl implements Inventory, Cash {
    {
       items.add(new Pair<>(item,count));
    }
+
+
 
 
 }
