@@ -16,7 +16,7 @@ public class App
         UserIO myIO = new UserIO();
         VendingMachineView myView = new VendingMachineView(myIO);
 
-        InventoryFileImpl myInventory = new InventoryFileImpl(new BigDecimal("2.00"));
+        InventoryFileImpl myInventory = new InventoryFileImpl();
 
         VendingMachineController controller = new VendingMachineController(myView,myInventory);
         // uncomment Init if want hardcore add item and money into the vending machine

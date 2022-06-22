@@ -24,13 +24,7 @@ public class VendingMachineController {
 
     public void Init()
     {
-        inventory.PreAddMoneyReplace(Money.TWO_DOLLAR,0);
-        inventory.PreAddMoneyReplace(Money.ONE_DOLLAR,100);
-        inventory.PreAddMoneyReplace(Money.FIFTY_CENT,100);
-        inventory.PreAddMoneyReplace(Money.TWENTY_CENT,100);
-        inventory.PreAddMoneyReplace(Money.TEN_CENT,100);
-        inventory.PreAddMoneyReplace(Money.FIVE_CENT,100);
-        inventory.PreAddMoneyReplace(Money.ONE_CENT,100);
+
 
         inventory.PreAddItemReplaceIfExisted(new Item("Dasani Mineral Water Bottle 500ml", new BigDecimal("0.70")),10);
         inventory.PreAddItemReplaceIfExisted(new Item("Sprite Can 330ml", new BigDecimal("0.85")),10);
@@ -99,7 +93,28 @@ public class VendingMachineController {
     {
         int index = options - 1;
 
-        return false;
+        Pair<Item,Integer> selectedItem = inventory.getItems().get(index);
+
+        if(selectedItem.getValue() <= 0 )
+        {
+            System.out.println(options + ":" + selectedItem.getKey().getName() + " is out of stock.");
+            return false;
+        }
+
+        BigDecimal userMoney = view.getIo().CountUserInputMoney();
+        if(selectedItem.getKey().getCost().compareTo(userMoney) == 1)
+        {
+            System.out.println("Insufficient amount.");
+            return false;
+        } else if (selectedItem.getKey().getCost().compareTo(userMoney) == -1)
+        {
+
+        }
+        else {
+
+            view.getIo().InitUserInputMoneyLinkHashMap();
+        }
+        return true;
 
     }
 }

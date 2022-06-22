@@ -5,6 +5,7 @@ import com.sg.dto.Money;
 import javafx.util.Builder;
 import javafx.util.Pair;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -13,6 +14,10 @@ public class VendingMachineView {
 
     public VendingMachineView(UserIO io) {
         this.io = io;
+    }
+
+    public UserIO getIo() {
+        return io;
     }
 
     private void PrintSeprater()
@@ -35,7 +40,7 @@ public class VendingMachineView {
     private StringBuilder PrintInventoryList(ArrayList<Pair<Item, Integer>> items)
     {
         StringBuilder chars = new StringBuilder();
-        items.forEach(i -> chars.append((items.indexOf(i) + 1) + ":" + i.getKey().getName() +" $"+ i.getKey().getCost() +"\n"));
+        items.forEach(i -> chars.append((items.indexOf(i) + 1) + ":" + i.getKey().getName() +" $"+ i.getKey().getCost() + " stock:" + i.getValue() + "\n"));
         return chars;
     }
 
@@ -57,6 +62,7 @@ public class VendingMachineView {
         msg.append("0:Cancel and exit to main menu.\n");
         msg.append((items.size() + 1));
         msg.append(":Insert money.\n");
+        msg.append("This machine did not have change. \n");
         msg.append("Type the number options.");
         int result = io.BuyMenu(msg,items.size() + 1);
         CloseBanner();

@@ -55,7 +55,7 @@ public class UserIO {
             userOption = -1;
             System.out.println("0:Exit.");
             System.out.println("1:Buy stuff.");
-            System.out.println("2:Stock up item or cash.");
+            System.out.println("2:Stock up items.");
             System.out.println("Type the number options.");
             if(sc.hasNextInt()) {
                 userOption = sc.nextInt();
