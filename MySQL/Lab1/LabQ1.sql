@@ -27,7 +27,7 @@ SELECT * FROM employees
 WHERE department_id ="60"
 ORDER BY first_name DESC;
 
-select * 
+select e.* , l.*
 from employees e
 join departments d on e.department_id = d.department_id
 join locations l on d.location_id = l.location_id
@@ -40,7 +40,6 @@ where hire_date  >= "2004-01-01";
 select *
 from employees
 where salary = (select max(salary)  from employees );
-
 
 select *
 from employees
