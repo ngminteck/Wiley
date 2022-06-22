@@ -1,10 +1,11 @@
 
+-- SHOW TABLES;
+-- DESCRIBE employees;
 -- WHERE rating IN("R","NC-17"); OR
 -- WHERE rating NOT IN("R","NC-17"); AND
 
 USE hr;
-SHOW TABLES;
-DESCRIBE employees;
+
 SELECT * FROM employees
 WHERE first_name ="Nancy" ;
 
