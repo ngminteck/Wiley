@@ -49,26 +49,44 @@ public class VendingMachineController {
         {
             int optionsMainMenu = view.PrintMainMenu();
 
+
             if(optionsMainMenu == 1)
             {
                 BuyMenu();
             }
-            else
+            else  if(optionsMainMenu == 2)
             {
 
+            }
+            else
+            {
+                break;
             }
         }
     }
 
     private void BuyMenu()
     {
-        int buyOptions = view.PrintBuyMenu(inventory.getItems(),inventory.getUserInputMoneys());
+        while (true) {
+            int buyOptions = view.PrintBuyMenu(inventory.getItems(), inventory.getUserInputMoneys());
 
-        if(buyOptions == 1)
-        {
+            if (buyOptions == 1) {
+                int insertOption = view.InsertMoneyMenu(inventory.getUserInputMoneys());
 
-        } else if (buyOptions == 2)
-        {
+                if(insertOption == 0)
+                {
+                    // refund if any coin insert
+                    break;
+                }
+
+            } else if (buyOptions == 2) {
+
+            }
+            else
+            {
+                // refund if any coin insert
+                break;
+            }
 
         }
     }

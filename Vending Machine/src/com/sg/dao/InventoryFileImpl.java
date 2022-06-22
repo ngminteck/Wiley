@@ -5,17 +5,15 @@ import com.sg.dto.Money;
 import javafx.util.Pair;
 
 import java.math.BigDecimal;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 // Inventory have a lot of type, like digital , coupon or the item itself
 // payment have a lot mode can be cash payment or card payment etc
 public class InventoryFileImpl implements Inventory, Cash {
 
-    // LinkedHashMap faster iterator to change the count value which represent the value
-   private Set<Pair<Item,Integer>> items = new LinkedHashSet<>();
+    // At vending machine item choice maybe duplicate due to limit of space
+   private ArrayList<Pair<Item,Integer>> items = new ArrayList<>();
+   // Money type should be unique
    private final Map<Money, Integer> moneys = new LinkedHashMap<>();
    private final Map<Money, Integer> userInputMoneys = new LinkedHashMap<>();
    private final BigDecimal maxChangeAmount;
@@ -27,11 +25,11 @@ public class InventoryFileImpl implements Inventory, Cash {
       this.maxChangeAmount = maxChangeAmount;
    }
 
-   public Set<Pair<Item, Integer>> getItems() {
+   public ArrayList<Pair<Item, Integer>> getItems() {
       return items;
    }
 
-   public void setItems(Set<Pair<Item, Integer>> items) {
+   public void setItems(ArrayList<Pair<Item, Integer>> items) {
       this.items = items;
    }
 
@@ -123,7 +121,7 @@ public class InventoryFileImpl implements Inventory, Cash {
 
    public void PreAddMoneyReplace(Money moneyType, Integer count)
    {
-      userInputMoneys.put(moneyType,count);
+      moneys.put(moneyType,count);
    }
    public void PreAddItemReplaceIfExisted(Item item, Integer count)
    {

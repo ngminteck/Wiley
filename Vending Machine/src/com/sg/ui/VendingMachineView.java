@@ -6,10 +6,9 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Set;
 
 public class VendingMachineView {
-    private UserIO io;
+    private final UserIO io;
 
     public VendingMachineView(UserIO io) {
         this.io = io;
@@ -40,7 +39,7 @@ public class VendingMachineView {
         return result;
     }
 
-    public int PrintBuyMenu(Set<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
+    public int PrintBuyMenu(ArrayList<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
     {
         StartBanner("Buy Menu");
         int result = io.BuyItemMenu(items, userInputMoney);
@@ -48,11 +47,12 @@ public class VendingMachineView {
         return result;
     }
 
-    public void InsertMoneyMenu(Map<Money, Integer> userInputMoney)
+    public int InsertMoneyMenu(Map<Money, Integer> userInputMoney)
     {
         StartBanner("Insert Money Menu");
-        io.InsertMoneyMenu(userInputMoney);
+        int result = io.InsertMoneyMenu(userInputMoney);
         CloseBanner();
+        return result;
     }
 
 

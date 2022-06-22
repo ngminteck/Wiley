@@ -24,14 +24,15 @@ public class UserIO {
         System.out.println("Welcome to my vending machine.");
         int userOption;
         do {
-            userOption = 0;
+            userOption = -1;
+            System.out.println("0:Exit.");
             System.out.println("1:Buy stuff.");
             System.out.println("2:Stock up item or cash.");
             System.out.println("Type the number options.");
             if(sc.hasNextInt()) {
                 userOption = sc.nextInt();
 
-                if(userOption != 1 && userOption != 2)
+                if(userOption != 0 && userOption != 1 && userOption != 2)
                     System.out.println("Invalid request!");
 
             }
@@ -40,21 +41,21 @@ public class UserIO {
                 System.out.println("Invalid request!");
             }
         }
-        while (userOption != 1 && userOption != 2);
+        while (userOption != 0 && userOption != 1 && userOption != 2);
         return userOption;
     }
 
 
-    public int BuyItemMenu(Set<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
+    public int BuyItemMenu(ArrayList<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
     {
-        ArrayList<Pair<Item,Integer>> itemsArrayList = new ArrayList<>(items);
+
         Set<Money> keys = userInputMoney.keySet();
         BigDecimal currentTotalValue;
         int userOption;
         do {
-            userOption = 0;
+            userOption = -1;
 
-            itemsArrayList.forEach(i-> System.out.println(i.getKey().getName() +" $"+ i.getKey().getCost()));
+            items.forEach(i-> System.out.println(i.getKey().getName() +" $"+ i.getKey().getCost()));
 
             currentTotalValue = new BigDecimal("0.00");
             for (Money key : keys)
@@ -63,14 +64,14 @@ public class UserIO {
             }
             System.out.println("Current insert value:$" + currentTotalValue );
 
+            System.out.println("0:Exit to main menu.");
             System.out.println("1:Insert coin.");
             System.out.println("2:Buy Item.");
-            System.out.println("3:Exit to main menu.");
             System.out.println("Type the number options.");
             if(sc.hasNextInt()) {
                 userOption = sc.nextInt();
 
-                if(userOption != 1 && userOption != 2 && userOption != 3)
+                if(userOption != 1 && userOption != 2 && userOption != 0)
                     System.out.println("Invalid request!");
 
             }
@@ -79,11 +80,11 @@ public class UserIO {
                 System.out.println("Invalid request!");
             }
         }
-        while (userOption != 1 && userOption != 2 && userOption != 3);
+        while (userOption != 1 && userOption != 2 && userOption != 0);
         return userOption;
     }
 
-    public void InsertMoneyMenu(Map<Money, Integer> userInputMoney)
+    public int InsertMoneyMenu(Map<Money, Integer> userInputMoney)
     {
         Set<Money> keys = userInputMoney.keySet();
         BigDecimal currentTotalValue = new BigDecimal("0.00");
@@ -94,9 +95,13 @@ public class UserIO {
             currentTotalValue = currentTotalValue.add(BigDecimal.valueOf( userInputMoney.get(key) ).multiply( key.getMoneyValue()));
         }
         System.out.println("Current insert value:$" + currentTotalValue );
-        System.out.println("Example: to insert 3 one dollar, type \"1.00 3\" --[Money Value] [Count]" );
+        System.out.println("Example: to insert 3 one dollar, type \"1 3\" --[Money Value] [Count]" );
         System.out.println("Example: to insert 2 two dollar and 1 fifty cent, type \"2 2 0.5 1\" or \"0.5 1 2 2\"" );
+        System.out.println("Type 0 alone to exit to main menu." );
         String msg = sc.next();
+
+        if(msg.charAt(0) == '0')
+            return 0;
 
         String[] data = msg.split(" ");
 
@@ -121,6 +126,7 @@ public class UserIO {
 
             }
             BigDecimal moneyValue =  BigDecimal.valueOf(value);
+            moneyValue = moneyValue.setScale(2, BigDecimal.ROUND_HALF_UP);
             Money moneyEnum = Money.GetEnumByMoneyValue(moneyValue);
 
             if(moneyEnum == null)
@@ -130,6 +136,7 @@ public class UserIO {
             userInputMoney.put(moneyEnum,newCount);
 
         }
-
+        return 1;
     }
+
 }
