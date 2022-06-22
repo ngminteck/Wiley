@@ -68,7 +68,7 @@ public class VendingMachineController {
     private void BuyMenu()
     {
         while (true) {
-            int buyOptions = view.PrintBuyMenu(inventory.getItems(), inventory.getUserInputMoneys());
+            int buyOptions = view.PrintBuyDisplayMenu(inventory.getItems(), inventory.getUserInputMoneys());
 
             if (buyOptions == 1) {
                 int insertOption = view.InsertMoneyMenu(inventory.getUserInputMoneys());

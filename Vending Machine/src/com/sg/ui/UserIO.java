@@ -5,6 +5,7 @@ import com.sg.dto.Money;
 import javafx.util.Pair;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
@@ -46,7 +47,7 @@ public class UserIO {
     }
 
 
-    public int BuyItemMenu(ArrayList<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
+    public int BuyDisplayMenu(ArrayList<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
     {
 
         Set<Money> keys = userInputMoney.keySet();
@@ -125,13 +126,13 @@ public class UserIO {
 
             }
             BigDecimal moneyValue =  BigDecimal.valueOf(value);
-            moneyValue = moneyValue.setScale(2, BigDecimal.ROUND_HALF_UP);
+            moneyValue = moneyValue.setScale(2, RoundingMode.HALF_UP);
             Money moneyEnum = Money.GetEnumByMoneyValue(moneyValue);
 
             if(moneyEnum == null)
                 continue;
 
-            System.out.println("Inserting " + quantity + " " + moneyEnum.toString() + " into the machine.");
+            System.out.println("Inserting " + quantity + " " + moneyEnum + " into the machine.");
 
             Integer newCount =  userInputMoney.get(moneyEnum) + quantity;
             userInputMoney.put(moneyEnum,newCount);
@@ -145,6 +146,47 @@ public class UserIO {
         }
         System.out.println("Current insert value:$" + currentTotalValue );
         return 1;
+    }
+
+    public int BuyItemMenu(ArrayList<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
+    {
+        Set<Money> keys = userInputMoney.keySet();
+        BigDecimal currentTotalValue;
+        final int offset = 2;
+        int userOption;
+        do {
+            userOption = -1;
+
+            System.out.println("0:Cancel & Exit to main menu.");
+            System.out.println("1:Insert more money.");
+            items.forEach(i-> System.out.println(((items.indexOf(i) + offset) + ":" + i.getKey().getName() +" $"+ i.getKey().getCost())));
+            System.out.println();
+
+            currentTotalValue = new BigDecimal("0.00");
+            for (Money key : keys)
+            {
+                currentTotalValue = currentTotalValue.add(BigDecimal.valueOf( userInputMoney.get(key) ).multiply( key.getMoneyValue()));
+            }
+            System.out.println("Current insert value:$" + currentTotalValue );
+            System.out.println("Type the number options.");
+
+            if(sc.hasNextInt()) {
+                userOption = sc.nextInt();
+
+                if(userOption < 0 && userOption < items.size() + 1)
+                    System.out.println("Invalid request!");
+
+
+                // buy logic
+
+            }
+            else {
+                sc.next();
+                System.out.println("Invalid request!");
+            }
+        }
+        while (userOption < 0 && userOption < items.size() + 1);
+        return userOption;
     }
 
 }

@@ -39,10 +39,10 @@ public class VendingMachineView {
         return result;
     }
 
-    public int PrintBuyMenu(ArrayList<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
+    public int PrintBuyDisplayMenu(ArrayList<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
     {
-        StartBanner("Buy Menu");
-        int result = io.BuyItemMenu(items, userInputMoney);
+        StartBanner("Buy Display Menu");
+        int result = io.BuyDisplayMenu(items, userInputMoney);
         CloseBanner();
         return result;
     }
@@ -51,6 +51,14 @@ public class VendingMachineView {
     {
         StartBanner("Insert Money Menu");
         int result = io.InsertMoneyMenu(userInputMoney);
+        CloseBanner();
+        return result;
+    }
+
+    public int BuyItemMenu(ArrayList<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
+    {
+        StartBanner("Buy Item Menu");
+        int result = io.BuyItemMenu(items, userInputMoney);
         CloseBanner();
         return result;
     }
