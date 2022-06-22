@@ -68,23 +68,15 @@ public class VendingMachineController {
     private void BuyMenu()
     {
         while (true) {
-            int buyOptions = view.PrintBuyDisplayMenu(inventory.getItems(), inventory.getUserInputMoneys());
+            int options = view.PrintBuyMenu(inventory.getItems(), inventory.getUserInputMoneys());
 
-            if (buyOptions == 1) {
-                int insertOption = view.InsertMoneyMenu(inventory.getUserInputMoneys());
+            // insert money menu
+            if (options == 1)
+               options = view.InsertMoneyMenu(inventory.getUserInputMoneys());
 
-                if(insertOption == 0)
-                {
-                    // refund if any coin insert
-                    break;
-                }
-
-            } else if (buyOptions == 2) {
-
-            }
-            else
+            if(options == 0)
             {
-                // refund if any coin insert
+                //refund if any extra
                 break;
             }
 

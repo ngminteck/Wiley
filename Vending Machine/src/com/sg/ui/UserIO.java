@@ -47,7 +47,7 @@ public class UserIO {
     }
 
 
-    public int BuyDisplayMenu(ArrayList<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
+    public int BuyMenu(ArrayList<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
     {
 
         Set<Money> keys = userInputMoney.keySet();
@@ -56,7 +56,7 @@ public class UserIO {
         do {
             userOption = -1;
 
-            items.forEach(i-> System.out.println(i.getKey().getName() +" $"+ i.getKey().getCost()));
+            items.forEach(i-> System.out.println((items.indexOf(i) + 1) +":" + i.getKey().getName() +" $"+ i.getKey().getCost()));
             System.out.println();
 
             currentTotalValue = new BigDecimal("0.00");
@@ -66,14 +66,13 @@ public class UserIO {
             }
             System.out.println("Current insert value:$" + currentTotalValue );
 
-            System.out.println("0:Exit to main menu.");
-            System.out.println("1:Insert money.");
-            System.out.println("2:Buy Item.");
+            System.out.println("0:Cancel and exit to main menu.");
+            System.out.println((items.size() + 1) + ":Insert money.");
             System.out.println("Type the number options.");
             if(sc.hasNextInt()) {
                 userOption = sc.nextInt();
 
-                if(userOption != 1 && userOption != 2 && userOption != 0)
+                if(userOption < 0 && userOption > (items.size() + 1))
                     System.out.println("Invalid request!");
 
             }
@@ -82,8 +81,13 @@ public class UserIO {
                 System.out.println("Invalid request!");
             }
         }
-        while (userOption != 1 && userOption != 2 && userOption != 0);
-        return userOption;
+        while (userOption < 0 && userOption > (items.size() + 1));
+
+        int nextOptions = 0;
+        if(userOption == items.size() + 1)
+            nextOptions = 1;
+
+        return nextOptions;
     }
 
     public int InsertMoneyMenu(Map<Money, Integer> userInputMoney)
@@ -148,45 +152,5 @@ public class UserIO {
         return 1;
     }
 
-    public int BuyItemMenu(ArrayList<Pair<Item, Integer>> items, Map<Money, Integer> userInputMoney)
-    {
-        Set<Money> keys = userInputMoney.keySet();
-        BigDecimal currentTotalValue;
-        final int offset = 2;
-        int userOption;
-        do {
-            userOption = -1;
-
-            System.out.println("0:Cancel & Exit to main menu.");
-            System.out.println("1:Insert more money.");
-            items.forEach(i-> System.out.println(((items.indexOf(i) + offset) + ":" + i.getKey().getName() +" $"+ i.getKey().getCost())));
-            System.out.println();
-
-            currentTotalValue = new BigDecimal("0.00");
-            for (Money key : keys)
-            {
-                currentTotalValue = currentTotalValue.add(BigDecimal.valueOf( userInputMoney.get(key) ).multiply( key.getMoneyValue()));
-            }
-            System.out.println("Current insert value:$" + currentTotalValue );
-            System.out.println("Type the number options.");
-
-            if(sc.hasNextInt()) {
-                userOption = sc.nextInt();
-
-                if(userOption < 0 && userOption < items.size() + 1)
-                    System.out.println("Invalid request!");
-
-
-                // buy logic
-
-            }
-            else {
-                sc.next();
-                System.out.println("Invalid request!");
-            }
-        }
-        while (userOption < 0 && userOption < items.size() + 1);
-        return userOption;
-    }
 
 }
