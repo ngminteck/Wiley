@@ -1,6 +1,7 @@
 package com.sg.ui;
 
 import com.sg.dto.Item;
+import com.sg.dto.ItemWrapper;
 import com.sg.dto.Money;
 import javafx.util.Builder;
 import javafx.util.Pair;
@@ -37,10 +38,10 @@ public class VendingMachineView {
         System.out.println();
     }
 
-    private StringBuilder PrintInventoryList(ArrayList<Pair<Item, Integer>> items)
+    private StringBuilder PrintInventoryList(ArrayList<ItemWrapper> items)
     {
         StringBuilder chars = new StringBuilder();
-        items.forEach(i -> chars.append((items.indexOf(i) + 1) + ":" + i.getKey().getName() +" $"+ i.getKey().getCost() + " stock:" + i.getValue() + "\n"));
+        items.forEach(i -> chars.append((items.indexOf(i) + 1) + ":" + i.getItem().getName() +" $"+ i.getItem().getCost() + " stock:" + i.getStock() + "\n"));
         return chars;
     }
 
@@ -55,7 +56,7 @@ public class VendingMachineView {
         return result;
     }
 
-    public int PrintBuyMenu(ArrayList<Pair<Item, Integer>> items)
+    public int PrintBuyMenu(ArrayList<ItemWrapper> items)
     {
         StartBanner("Buy Menu");
         StringBuilder msg = PrintInventoryList(items);
@@ -69,10 +70,23 @@ public class VendingMachineView {
         return result;
     }
 
-    public int InsertMoneyMenu()
+    public int PrintInsertMoneyMenu()
     {
         StartBanner("Insert Money Menu");
         int result = io.InsertMoneyMenu();
+        CloseBanner();
+        return result;
+    }
+
+    public int PrintStockUpMenu(ArrayList<ItemWrapper> items)
+    {
+        StartBanner("Stock Up Menu");
+        StringBuilder msg = PrintInventoryList(items);
+        msg.append("0:Cancel and exit to main menu.\n");
+        msg.append((items.size() + 1));
+        msg.append(":Add non existing item.\n");
+        msg.append("Type the number options.");
+        int result = io.StockUpMenu(msg,items.size() + 1);
         CloseBanner();
         return result;
     }

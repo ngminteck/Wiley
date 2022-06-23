@@ -2,19 +2,15 @@ package com.sg.controller;
 
 import com.sg.dao.InventoryFileImpl;
 import com.sg.dto.Item;
-import com.sg.dto.Money;
+import com.sg.dto.ItemWrapper;
 import com.sg.ui.VendingMachineView;
-import javafx.util.Pair;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 public class VendingMachineController {
 
-    private VendingMachineView view;
-    private InventoryFileImpl inventory;
+    private final VendingMachineView view;
+    private final InventoryFileImpl inventory;
 
 
     public VendingMachineController(VendingMachineView view, InventoryFileImpl inventory) {
@@ -29,7 +25,7 @@ public class VendingMachineController {
         inventory.PreAddItemReplaceIfExisted(new Item("Dasani Mineral Water Bottle 500ml", new BigDecimal("0.70")),10);
         inventory.PreAddItemReplaceIfExisted(new Item("Sprite Can 330ml", new BigDecimal("0.85")),10);
         inventory.PreAddItemReplaceIfExisted(new Item("7up Can 330ml", new BigDecimal("0.75")),10);
-        inventory.PreAddItemReplaceIfExisted(new Item("Coke can 330ml", new BigDecimal("1.20")),10);
+        inventory.PreAddItemReplaceIfExisted(new Item("Coke can 330ml", new BigDecimal("1.20")),1);
         inventory.PreAddItemReplaceIfExisted(new Item("Pepsi can 330ml", new BigDecimal("1.00")),10);
         inventory.PreAddItemReplaceIfExisted(new Item("Milo can 250ml", new BigDecimal("1.80")),10);
         inventory.PreAddItemReplaceIfExisted(new Item("Nestle Coffee can 250ml", new BigDecimal("1.80")),10);
@@ -67,7 +63,7 @@ public class VendingMachineController {
             // insert money menu
             if (options == (inventory.getItems().size() + 1)) {
 
-                options = view.InsertMoneyMenu();
+                options = view.PrintInsertMoneyMenu();
             }
 
             // buying stuff
@@ -82,7 +78,8 @@ public class VendingMachineController {
 
             if(options == 0)
             {
-                //refund if any extra
+                // set insert money to zero
+                view.getIo().InitUserInputMoneyLinkHashMap();
                 break;
             }
 
@@ -93,28 +90,62 @@ public class VendingMachineController {
     {
         int index = options - 1;
 
-        Pair<Item,Integer> selectedItem = inventory.getItems().get(index);
+        ItemWrapper selectedItem = inventory.getItems().get(index);
 
-        if(selectedItem.getValue() <= 0 )
+        if(selectedItem.getStock() <= 0 )
         {
-            System.out.println(options + ":" + selectedItem.getKey().getName() + " is out of stock.");
+            System.out.println(options + ":" + selectedItem.getItem().getName() + " is out of stock.");
             return false;
         }
 
         BigDecimal userMoney = view.getIo().CountUserInputMoney();
-        if(selectedItem.getKey().getCost().compareTo(userMoney) == 1)
+        if(selectedItem.getItem().getCost().compareTo(userMoney) > 0)
         {
             System.out.println("Insufficient amount.");
             return false;
-        } else if (selectedItem.getKey().getCost().compareTo(userMoney) == -1)
-        {
-
         }
-        else {
 
-            view.getIo().InitUserInputMoneyLinkHashMap();
-        }
+        inventory.RemoveItemCount(index, 1);
+        System.out.println("Successfully purchase " + selectedItem.getItem().getName() +".");
+        System.out.println("Thank you for buying.");
         return true;
 
+    }
+
+    public void StockUpMenu()
+    {
+        while (true) {
+            int options = view.PrintStockUpMenu(inventory.getItems());
+
+            if(options > 0 && options <= inventory.getItems().size())
+            {
+                int index = options - 1;
+
+                //modify option
+
+            }
+            // add new item
+            else if (options == (inventory.getItems().size() + 1)) {
+
+                String name = view.getIo().StringInput();
+                BigDecimal price = view.getIo().BigDecimalInput();
+                Integer count = view.getIo().IntegerInput();
+
+                inventory.AddNewItemProduct(name,price,count);
+
+                options = -1;
+            }
+
+            // edit existed item
+
+
+            if(options == 0)
+            {
+                // set insert money to zero
+                view.getIo().InitUserInputMoneyLinkHashMap();
+                break;
+            }
+
+        }
     }
 }

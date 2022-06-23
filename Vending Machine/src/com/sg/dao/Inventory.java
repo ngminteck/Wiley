@@ -6,11 +6,10 @@ import javafx.util.Pair;
 import java.math.BigDecimal;
 
 public interface Inventory {
+    void AddNewItemProduct (String name, BigDecimal price, Integer count);
+    void ModifyItemProduct(int index, String name, BigDecimal price, Integer count);
+    void RemoveItemProduct(int index);
 
-    void AddNewItemProduct (Item item);
-    void AddNewItemProduct (Item item, Integer count);
-    void RemoveItemProduct(Item item);
-    void AddItemCount (Item item, Integer count);
-    void RemoveItemCount (Item item, Integer count);
+    void RemoveItemCount (int index, Integer count);
 
 }

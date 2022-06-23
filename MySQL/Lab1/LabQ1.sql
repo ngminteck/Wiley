@@ -27,11 +27,15 @@ SELECT * FROM employees
 WHERE department_id ="60"
 ORDER BY first_name DESC;
 
-select e.* , l.*
+select e.first_name , l.city
 from employees e
 join departments d on e.department_id = d.department_id
-join locations l on d.location_id = l.location_id
-group by e.employee_id;
+join locations l on d.location_id = l.location_id;
+
+select e.first_name , l.city
+from employees e, departments d, locations l
+where e.department_id = d.department_id and d.location_id = l.location_id;
+
 
 select * 
 from employees
@@ -47,6 +51,12 @@ where hire_date  >=  (select hire_date from employees where first_name ="Bruce" 
 
 select * 
 from employees
-where  (hire_date between '2004-06-01' and '2004-06-01')
+where  (hire_date between '2004-06-01' and '2004-06-01');
+
+select first_name, hire_date, date_format(hire_date, '%M')
+from employees
+where date_format(hire_date, '%M') like 'June' ;
+
+
 
 

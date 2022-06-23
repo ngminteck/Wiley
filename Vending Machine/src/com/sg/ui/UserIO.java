@@ -145,8 +145,79 @@ public class UserIO {
 
         }
         System.out.println("Current insert value:$" + CountUserInputMoney());
-        return 1;
+        return -1;
     }
 
+    public int StockUpMenu(StringBuilder msg, int vaildChoiceLimit)
+    {
+        int userOption;
+        do {
+            userOption = -1;
+
+            System.out.println(msg);
+
+            if(sc.hasNextInt()) {
+                userOption = sc.nextInt();
+
+                if(userOption < 0 && userOption > vaildChoiceLimit)
+                    System.out.println("Invalid request!");
+
+            }
+            else {
+                sc.next();
+                System.out.println("Invalid request!");
+            }
+        }
+        while (userOption < 0 && userOption > vaildChoiceLimit);
+
+        return userOption;
+    }
+
+    public String StringInput()
+    {
+        System.out.println("Please enter the name of the product.");
+        return sc.next();
+    }
+
+    public BigDecimal BigDecimalInput()
+    {
+        do {
+            System.out.println("Please enter the price for the product.");
+
+            if(sc.hasNextDouble()) {
+                double userOption = sc.nextDouble();
+                BigDecimal price = new BigDecimal(userOption);
+                price = price.setScale(2, RoundingMode.HALF_UP);
+                System.out.println("Price are set $:" + price +".");
+                return price;
+
+            }
+            else {
+                sc.next();
+                System.out.println("Invalid input!");
+            }
+        }
+        while (!sc.hasNextDouble());
+
+       return BigDecimal.ZERO;
+    }
+    public Integer IntegerInput()
+    {
+        do {
+            System.out.println("Please enter the quantity for the product.");
+
+            if(sc.hasNextInt()) {
+               return sc.nextInt();
+
+            }
+            else {
+                sc.next();
+                System.out.println("Invalid input!");
+            }
+        }
+        while (!sc.hasNextInt());
+
+        return 0;
+    }
 
 }

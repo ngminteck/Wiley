@@ -1,56 +1,54 @@
 package com.sg.dao;
 
 import com.sg.dto.Item;
-import com.sg.dto.Money;
-import javafx.util.Pair;
+import com.sg.dto.ItemWrapper;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
 
 // Inventory have a lot of type, like digital , coupon or the item itself
 // payment have a lot mode can be cash payment or card payment etc
 public class InventoryFileImpl implements Inventory {
 
     // At vending machine item choice maybe duplicate due to limit of space
-   private ArrayList<Pair<Item,Integer>> items = new ArrayList<>();
+   private ArrayList<ItemWrapper> items = new ArrayList<>();
 
 
-   public ArrayList<Pair<Item, Integer>> getItems() {
+   public ArrayList<ItemWrapper> getItems() {
       return items;
    }
 
-   public void setItems(ArrayList<Pair<Item, Integer>> items) {
+   public void setItems(ArrayList<ItemWrapper> items) {
       this.items = items;
    }
 
-   @Override
-   public void AddNewItemProduct(Item item) {
 
+   @Override
+   public void AddNewItemProduct(String name, BigDecimal price, Integer count) {
+      items.add(new ItemWrapper(new Item(name,price),count));
+   }
+   @Override
+   public void ModifyItemProduct(int index, String name, BigDecimal price, Integer count)
+   {
+      items.get(index).getItem().setName(name);
+      items.get(index).getItem().setCost(price);
+      items.get(index).setStock(count);
    }
 
    @Override
-   public void AddNewItemProduct(Item item, Integer count) {
-
+   public void RemoveItemProduct(int index) {
+      items.remove(index);
    }
 
-   @Override
-   public void RemoveItemProduct(Item item) {
-
-   }
 
    @Override
-   public void AddItemCount(Item item, Integer count) {
-
-   }
-
-   @Override
-   public void RemoveItemCount(Item item, Integer count) {
-
+   public void RemoveItemCount(int index, Integer count) {
+      items.get(index).setStock(items.get(index).getStock() - count);
    }
 
    public void PreAddItemReplaceIfExisted(Item item, Integer count)
    {
-      items.add(new Pair<>(item,count));
+      items.add(new ItemWrapper(item,count));
    }
 
 
