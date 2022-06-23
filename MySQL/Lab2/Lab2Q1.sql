@@ -4,6 +4,7 @@ select date_format(hire_date, '%Y') as year,count(date_format(hire_date, '%Y')) 
 from employees
 group by year;
 
+
 select date_format(hire_date, '%M') as month, Count(date_format(hire_date, '%M')) as no
 from employees
 group by month

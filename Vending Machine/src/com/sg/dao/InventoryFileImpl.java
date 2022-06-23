@@ -11,15 +11,11 @@ import java.util.ArrayList;
 public class InventoryFileImpl implements Inventory {
 
     // At vending machine item choice maybe duplicate due to limit of space
-   private ArrayList<ItemWrapper> items = new ArrayList<>();
+   private final ArrayList<ItemWrapper> items = new ArrayList<>();
 
 
    public ArrayList<ItemWrapper> getItems() {
       return items;
-   }
-
-   public void setItems(ArrayList<ItemWrapper> items) {
-      this.items = items;
    }
 
 

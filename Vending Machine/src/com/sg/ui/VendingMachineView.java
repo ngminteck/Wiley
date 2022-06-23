@@ -1,14 +1,9 @@
 package com.sg.ui;
 
-import com.sg.dto.Item;
 import com.sg.dto.ItemWrapper;
-import com.sg.dto.Money;
-import javafx.util.Builder;
-import javafx.util.Pair;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class VendingMachineView {
     private final UserIO io;
@@ -21,27 +16,27 @@ public class VendingMachineView {
         return io;
     }
 
-    private void PrintSeprater()
+    private void PrintTwoLine()
     {
         System.out.println("================================================================================");
     }
-    private void StartBanner(String header)
+    public void StartBanner(String header)
     {
-        PrintSeprater();
+        PrintTwoLine();
         System.out.println(header);
-        PrintSeprater();
+        PrintTwoLine();
     }
 
-    private void CloseBanner()
+    public void CloseBanner()
     {
-        PrintSeprater();
+        PrintTwoLine();
         System.out.println();
     }
 
     private StringBuilder PrintInventoryList(ArrayList<ItemWrapper> items)
     {
         StringBuilder chars = new StringBuilder();
-        items.forEach(i -> chars.append((items.indexOf(i) + 1) + ":" + i.getItem().getName() +" $"+ i.getItem().getCost() + " stock:" + i.getStock() + "\n"));
+        items.forEach(i -> chars.append(items.indexOf(i) + 1).append(":").append(i.getItem().getName()).append(" $").append(i.getItem().getCost()).append(" stock:").append(i.getStock()).append("\n"));
         return chars;
     }
 
@@ -51,7 +46,8 @@ public class VendingMachineView {
     {
         StartBanner("Main Menu");
         System.out.println("Welcome to my vending machine.");
-        int result = io.BuyItemOrStockUpMenu();
+        StringBuilder msg = new StringBuilder("1.Buy stuff.\n2.Edit item list.\n0.Exit.");
+        int result = io.UserIntChoice(msg,2);
         CloseBanner();
         return result;
     }
@@ -63,8 +59,7 @@ public class VendingMachineView {
         msg.append("0:Cancel and exit to main menu.\n");
         msg.append((items.size() + 1));
         msg.append(":Insert money.\n");
-        msg.append("This machine did not have change. \n");
-        msg.append("Type the number options.");
+        msg.append("This machine did not have change.\n");
         int result = io.BuyMenu(msg,items.size() + 1);
         CloseBanner();
         return result;
@@ -85,13 +80,20 @@ public class VendingMachineView {
         msg.append("0:Cancel and exit to main menu.\n");
         msg.append((items.size() + 1));
         msg.append(":Add non existing item.\n");
-        msg.append("Type the number options.");
-        int result = io.StockUpMenu(msg,items.size() + 1);
+        int result = io.UserIntChoice(msg,items.size() + 1);
         CloseBanner();
         return result;
     }
 
 
+    public int PrintItemEditMenu(String name, BigDecimal price, Integer count)
+    {
+        StringBuilder msg = new StringBuilder("Item Info: Name:"+ name + " Price:$" + price + " Stock:" + count + "\n");
+        msg.append("1.Edit the name.\n2.Edit the price.\n3.Edit the count.\n4.Remove the item.\n0.Exit to Stock Up Menu.");
+        int result = io.UserIntChoice(msg,4);
+        CloseBanner();
+        return result;
+    }
 
 
 

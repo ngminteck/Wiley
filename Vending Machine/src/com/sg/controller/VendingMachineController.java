@@ -21,17 +21,16 @@ public class VendingMachineController {
     public void Init()
     {
 
-
-        inventory.PreAddItemReplaceIfExisted(new Item("Dasani Mineral Water Bottle 500ml", new BigDecimal("0.70")),10);
-        inventory.PreAddItemReplaceIfExisted(new Item("Sprite Can 330ml", new BigDecimal("0.85")),10);
-        inventory.PreAddItemReplaceIfExisted(new Item("7up Can 330ml", new BigDecimal("0.75")),10);
-        inventory.PreAddItemReplaceIfExisted(new Item("Coke can 330ml", new BigDecimal("1.20")),1);
-        inventory.PreAddItemReplaceIfExisted(new Item("Pepsi can 330ml", new BigDecimal("1.00")),10);
-        inventory.PreAddItemReplaceIfExisted(new Item("Milo can 250ml", new BigDecimal("1.80")),10);
-        inventory.PreAddItemReplaceIfExisted(new Item("Nestle Coffee can 250ml", new BigDecimal("1.80")),10);
-        inventory.PreAddItemReplaceIfExisted(new Item("Yeo sofa bean milk 330ml", new BigDecimal("0.90")),10);
-        inventory.PreAddItemReplaceIfExisted(new Item("Jasmine Green Tea Bottle 500ml", new BigDecimal("2.00")),10);
-        inventory.PreAddItemReplaceIfExisted(new Item("Red Bull 500ml", new BigDecimal("2.30")),10);
+        inventory.PreAddItemReplaceIfExisted(new Item("Mineral Water Bottle 500ml", new BigDecimal("0.70")),10);
+        inventory.PreAddItemReplaceIfExisted(new Item("Sprite Can 330ml", new BigDecimal("0.85")),6);
+        inventory.PreAddItemReplaceIfExisted(new Item("7up Can 330ml", new BigDecimal("0.75")),7);
+        inventory.PreAddItemReplaceIfExisted(new Item("Coke can 330ml", new BigDecimal("1.20")),0);
+        inventory.PreAddItemReplaceIfExisted(new Item("Pepsi can 330ml", new BigDecimal("1.00")),2);
+        inventory.PreAddItemReplaceIfExisted(new Item("Milo can 250ml", new BigDecimal("1.80")),1);
+        inventory.PreAddItemReplaceIfExisted(new Item("Nestle Coffee can 250ml", new BigDecimal("1.80")),1);
+        inventory.PreAddItemReplaceIfExisted(new Item("Yeo sofa bean milk 330ml", new BigDecimal("0.90")),5);
+        inventory.PreAddItemReplaceIfExisted(new Item("Jasmine Green Tea Bottle 500ml", new BigDecimal("2.00")),3);
+        inventory.PreAddItemReplaceIfExisted(new Item("Red Bull 500ml", new BigDecimal("2.30")),9);
     }
     public void Run()
     {
@@ -46,7 +45,7 @@ public class VendingMachineController {
             }
             else  if(optionsMainMenu == 2)
             {
-
+                StockUpMenu();
             }
             else
             {
@@ -114,15 +113,51 @@ public class VendingMachineController {
 
     public void StockUpMenu()
     {
-        while (true) {
+        while (true)
+        {
             int options = view.PrintStockUpMenu(inventory.getItems());
 
             if(options > 0 && options <= inventory.getItems().size())
             {
                 int index = options - 1;
+                ItemWrapper item = inventory.getItems().get(index);
+                String name = item.getItem().getName();
+                BigDecimal price = item.getItem().getCost();
+                Integer count = item.getStock();
+                view.StartBanner("Edit " + name + " menu");
+                while(true)
+                {
+                    int editOptions = view.PrintItemEditMenu(name,price,count);
+                    
+                    if(editOptions == 1)
+                    {
+                        name = view.getIo().StringInput();
+                        inventory.ModifyItemProduct(index,name,price,count);
+                        System.out.println("Name updated.");
+                    }
+                    else if (editOptions == 2)
+                    {
+                        price =view.getIo().BigDecimalInput();
+                        inventory.ModifyItemProduct(index,name,price,count);
+                        System.out.println("Price updated.");
+                    }
+                    else if (editOptions == 3)
+                    {
+                        count = view.getIo().IntegerInput();
+                        System.out.println("Stock updated.");
+                        inventory.ModifyItemProduct(index,name,price,count);
+                    }
+                    else if (editOptions == 4)
+                    {
+                        inventory.RemoveItemProduct(index);
+                        System.out.println("Item removed.");
+                        editOptions = 0;
+                    }
 
-                //modify option
-
+                    if(editOptions == 0)
+                        break;
+                }
+                view.CloseBanner();
             }
             // add new item
             else if (options == (inventory.getItems().size() + 1)) {
@@ -133,16 +168,11 @@ public class VendingMachineController {
 
                 inventory.AddNewItemProduct(name,price,count);
 
-                options = -1;
             }
-
-            // edit existed item
-
 
             if(options == 0)
             {
-                // set insert money to zero
-                view.getIo().InitUserInputMoneyLinkHashMap();
+                // save file
                 break;
             }
 

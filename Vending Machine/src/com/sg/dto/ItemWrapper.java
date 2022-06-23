@@ -2,7 +2,7 @@ package com.sg.dto;
 
 public class ItemWrapper {
 
-    private Item item;
+    private final Item item;
     private Integer stock;
 
     public ItemWrapper(Item item, Integer stock) {
@@ -12,10 +12,6 @@ public class ItemWrapper {
 
     public Item getItem() {
         return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
     }
 
     public Integer getStock() {

@@ -1,8 +1,5 @@
 package com.sg.dao;
 
-import com.sg.dto.Item;
-import javafx.util.Pair;
-
 import java.math.BigDecimal;
 
 public interface Inventory {

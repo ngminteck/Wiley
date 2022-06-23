@@ -17,50 +17,63 @@ public class UserIO {
         InitUserInputMoneyLinkHashMap();
     }
 
-    public Map<Money, Integer> getUserInputMoneys() {
-        return userInputMoneys;
+    public String StringInput()
+    {
+        System.out.println("Please enter the name of the product.");
+        return sc.next();
     }
 
-    public void InitUserInputMoneyLinkHashMap() {
-        userInputMoneys.put(Money.TWO_DOLLAR,0);
-        userInputMoneys.put(Money.ONE_DOLLAR,0);
-        userInputMoneys.put(Money.FIFTY_CENT,0);
-        userInputMoneys.put(Money.TWENTY_CENT,0);
-        userInputMoneys.put(Money.TEN_CENT,0);
-        userInputMoneys.put(Money.FIVE_CENT,0);
-        userInputMoneys.put(Money.ONE_CENT,0);
-    }
-    public BigDecimal CountUserInputMoney()
+    public BigDecimal BigDecimalInput()
     {
-        BigDecimal currentTotalValue = new BigDecimal("0.00");
-        Set<Money> keys = userInputMoneys.keySet();
-        for (Money key : keys)
-        {
-            currentTotalValue = currentTotalValue.add(BigDecimal.valueOf( userInputMoneys.get(key) ).multiply( key.getMoneyValue()));
+        do {
+            System.out.println("Please enter the price for the product.");
+
+            if(sc.hasNextDouble()) {
+                double userOption = sc.nextDouble();
+                BigDecimal price = new BigDecimal(userOption);
+                price = price.setScale(2, RoundingMode.HALF_UP);
+                System.out.println("Price are set $:" + price +".");
+                return price;
+
+            }
+            else {
+                sc.next();
+                System.out.println("Invalid input!");
+            }
         }
-        return currentTotalValue;
-    }
+        while (!sc.hasNextDouble());
 
-    public void AddUserInputMoney(Money money, Integer count)
+        return BigDecimal.ZERO;
+    }
+    public Integer IntegerInput()
     {
-        Integer newCount =  userInputMoneys.get(money) + count;
-        System.out.println("Inserting " + count + " " + money + " into the machine.");
-        userInputMoneys.put(money,newCount);
+        do {
+            System.out.println("Please enter the quantity for the product.");
+
+            if(sc.hasNextInt()) {
+                return sc.nextInt();
+
+            }
+            else {
+                sc.next();
+                System.out.println("Invalid input!");
+            }
+        }
+        while (!sc.hasNextInt());
+
+        return 0;
     }
 
-    public int BuyItemOrStockUpMenu()
+    public int UserIntChoice(StringBuilder msg, int maxValidChoice)
     {
         int userOption;
         do {
             userOption = -1;
-            System.out.println("0:Exit.");
-            System.out.println("1:Buy stuff.");
-            System.out.println("2:Stock up items.");
-            System.out.println("Type the number options.");
+            System.out.println(msg);
             if(sc.hasNextInt()) {
                 userOption = sc.nextInt();
 
-                if(userOption != 0 && userOption != 1 && userOption != 2)
+                if(userOption < 0 && userOption > maxValidChoice)
                     System.out.println("Invalid request!");
 
             }
@@ -69,10 +82,9 @@ public class UserIO {
                 System.out.println("Invalid request!");
             }
         }
-        while (userOption != 0 && userOption != 1 && userOption != 2);
+        while (userOption < 0 && userOption > maxValidChoice);
         return userOption;
     }
-
 
     public int BuyMenu(StringBuilder msg, int vaildChoiceLimit)
     {
@@ -148,76 +160,36 @@ public class UserIO {
         return -1;
     }
 
-    public int StockUpMenu(StringBuilder msg, int vaildChoiceLimit)
+    public void InitUserInputMoneyLinkHashMap() {
+        userInputMoneys.put(Money.TWO_DOLLAR,0);
+        userInputMoneys.put(Money.ONE_DOLLAR,0);
+        userInputMoneys.put(Money.FIFTY_CENT,0);
+        userInputMoneys.put(Money.TWENTY_CENT,0);
+        userInputMoneys.put(Money.TEN_CENT,0);
+        userInputMoneys.put(Money.FIVE_CENT,0);
+        userInputMoneys.put(Money.ONE_CENT,0);
+    }
+
+    public BigDecimal CountUserInputMoney()
     {
-        int userOption;
-        do {
-            userOption = -1;
-
-            System.out.println(msg);
-
-            if(sc.hasNextInt()) {
-                userOption = sc.nextInt();
-
-                if(userOption < 0 && userOption > vaildChoiceLimit)
-                    System.out.println("Invalid request!");
-
-            }
-            else {
-                sc.next();
-                System.out.println("Invalid request!");
-            }
+        BigDecimal currentTotalValue = new BigDecimal("0.00");
+        Set<Money> keys = userInputMoneys.keySet();
+        for (Money key : keys)
+        {
+            currentTotalValue = currentTotalValue.add(BigDecimal.valueOf( userInputMoneys.get(key) ).multiply( key.getMoneyValue()));
         }
-        while (userOption < 0 && userOption > vaildChoiceLimit);
-
-        return userOption;
+        return currentTotalValue;
     }
 
-    public String StringInput()
+    public void AddUserInputMoney(Money money, Integer count)
     {
-        System.out.println("Please enter the name of the product.");
-        return sc.next();
+        Integer newCount =  userInputMoneys.get(money) + count;
+        System.out.println("Inserting " + count + " " + money + " into the machine.");
+        userInputMoneys.put(money,newCount);
     }
 
-    public BigDecimal BigDecimalInput()
-    {
-        do {
-            System.out.println("Please enter the price for the product.");
 
-            if(sc.hasNextDouble()) {
-                double userOption = sc.nextDouble();
-                BigDecimal price = new BigDecimal(userOption);
-                price = price.setScale(2, RoundingMode.HALF_UP);
-                System.out.println("Price are set $:" + price +".");
-                return price;
 
-            }
-            else {
-                sc.next();
-                System.out.println("Invalid input!");
-            }
-        }
-        while (!sc.hasNextDouble());
 
-       return BigDecimal.ZERO;
-    }
-    public Integer IntegerInput()
-    {
-        do {
-            System.out.println("Please enter the quantity for the product.");
-
-            if(sc.hasNextInt()) {
-               return sc.nextInt();
-
-            }
-            else {
-                sc.next();
-                System.out.println("Invalid input!");
-            }
-        }
-        while (!sc.hasNextInt());
-
-        return 0;
-    }
 
 }
