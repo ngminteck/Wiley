@@ -18,3 +18,8 @@ group by month
 order by no desc
 limit 1;
 
+-- 4) WAQ to display highest paid employee information in each department.
+-- 5) WAQ to calculate second highest salary department wise.
+
+
+
