@@ -68,9 +68,15 @@ public enum Money {
     }
 
     static {
+
         for (Money enumType : EnumSet.allOf(Money.class)) {
             valueToEnum.put(enumType.moneyValue, enumType);
         }
+    }
+
+    public static Map<BigDecimal,Money> GetAllEnumForLoop()
+    {
+        return valueToEnum;
     }
 
     public static Money GetEnumByMoneyValue(BigDecimal moneyValue)

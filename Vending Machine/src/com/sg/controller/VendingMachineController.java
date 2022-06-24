@@ -1,11 +1,15 @@
 package com.sg.controller;
 
 import com.sg.dao.InventoryFileImpl;
+import com.sg.dao.VendingMachineException;
 import com.sg.dto.Item;
 import com.sg.dto.ItemWrapper;
+import com.sg.dto.Money;
 import com.sg.ui.VendingMachineView;
 
 import java.math.BigDecimal;
+import java.util.Map;
+import java.util.Set;
 
 public class VendingMachineController {
 
@@ -18,8 +22,7 @@ public class VendingMachineController {
         this.inventory = inventory;
     }
 
-    public void Init()
-    {
+    public void Init(){
 
         inventory.PreAddItemReplaceIfExisted(new Item("Mineral Water Bottle 500ml", new BigDecimal("0.70")),10);
         inventory.PreAddItemReplaceIfExisted(new Item("Sprite Can 330ml", new BigDecimal("0.85")),6);
@@ -31,9 +34,10 @@ public class VendingMachineController {
         inventory.PreAddItemReplaceIfExisted(new Item("Yeo sofa bean milk 330ml", new BigDecimal("0.90")),5);
         inventory.PreAddItemReplaceIfExisted(new Item("Jasmine Green Tea Bottle 500ml", new BigDecimal("2.00")),3);
         inventory.PreAddItemReplaceIfExisted(new Item("Red Bull 500ml", new BigDecimal("2.30")),9);
+
+
     }
-    public void Run()
-    {
+    public void Run() {
         while (true)
         {
             int optionsMainMenu = view.PrintMainMenu();
@@ -52,6 +56,15 @@ public class VendingMachineController {
                 break;
             }
         }
+
+        try {
+            inventory.FileWrite();
+        }
+        catch (VendingMachineException e)
+        {
+            view.displayErrorMessage(e.getMessage());
+        }
+
     }
 
     private void BuyMenu()
@@ -78,7 +91,7 @@ public class VendingMachineController {
             if(options == 0)
             {
                 // set insert money to zero
-                view.getIo().InitUserInputMoneyLinkHashMap();
+                //view.getIo().InitUserInputMoneyLinkHashMap();
                 break;
             }
 
@@ -100,8 +113,20 @@ public class VendingMachineController {
         BigDecimal userMoney = view.getIo().CountUserInputMoney();
         if(selectedItem.getItem().getCost().compareTo(userMoney) > 0)
         {
-            System.out.println("Insufficient amount.");
+            BigDecimal requireMoney = selectedItem.getItem().getCost();
+            requireMoney = requireMoney.subtract(userMoney);
+            System.out.println("Insufficient amount, require $" + requireMoney + " more." );
             return false;
+        }
+
+        if(selectedItem.getItem().getCost().compareTo(userMoney)==0)
+        {
+            view.getIo().InitUserInputMoneyLinkHashMap();
+        }
+        else if(selectedItem.getItem().getCost().compareTo(userMoney) < 0)
+        {
+            MoneyChange(view.getIo().getUserInputMoneys(),selectedItem.getItem().getCost());
+            view.getIo().PrintChange();
         }
 
         inventory.RemoveItemCount(index, 1);
@@ -177,5 +202,64 @@ public class VendingMachineController {
             }
 
         }
+    }
+
+    void MoneyChange(Map<Money, Integer> userInputMoneys, BigDecimal price)
+    {
+
+        Set<Money> keys = userInputMoneys.keySet();
+        for (Money key : keys)
+        {
+            int count = userInputMoneys.get(key);
+
+            if(count <=0)
+                continue;
+
+            BigDecimal moneyValue = key.getMoneyValue();
+
+            while(count > 0 && price.compareTo(BigDecimal.ZERO) >0 )
+            {
+                price = price.subtract(moneyValue);
+                --count;
+            }
+
+            // replace new count
+            userInputMoneys.put(key,count);
+
+            if(price.compareTo(BigDecimal.ZERO) < 0)
+                break;
+
+        }
+
+
+        // add back the value
+        if(price.compareTo(BigDecimal.ZERO) < 0)
+        {
+            price = price.negate();
+
+            for (Money key : keys)
+            {
+                // too big find next bigger change
+                if(key.getMoneyValue().compareTo(price) > 0)
+                    continue;
+
+                BigDecimal moneyValue = key.getMoneyValue();
+
+                int count = 0;
+
+                while(price.compareTo(moneyValue) >=0)
+                {
+                    price = price.subtract(moneyValue);
+                    ++count;
+                }
+                Integer newCount = userInputMoneys.get(key) + count;
+                userInputMoneys.put(key,newCount);
+
+                if(price.compareTo(BigDecimal.ZERO) == 0)
+                    break;
+
+            }
+        }
+
     }
 }

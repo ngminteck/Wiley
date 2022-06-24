@@ -58,8 +58,7 @@ public class VendingMachineView {
         StringBuilder msg = PrintInventoryList(items);
         msg.append("0:Cancel and exit to main menu.\n");
         msg.append((items.size() + 1));
-        msg.append(":Insert money.\n");
-        msg.append("This machine did not have change.\n");
+        msg.append(":Insert money.");
         int result = io.BuyMenu(msg,items.size() + 1);
         CloseBanner();
         return result;
@@ -95,6 +94,11 @@ public class VendingMachineView {
         return result;
     }
 
+    public void displayErrorMessage(String errorMsg) {
+        StartBanner("Error");
+        System.out.println(errorMsg);
+        CloseBanner();
+    }
 
 
 }

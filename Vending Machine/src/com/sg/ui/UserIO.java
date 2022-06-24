@@ -17,6 +17,10 @@ public class UserIO {
         InitUserInputMoneyLinkHashMap();
     }
 
+    public Map<Money, Integer> getUserInputMoneys() {
+        return userInputMoneys;
+    }
+
     public String StringInput()
     {
         System.out.println("Please enter the name of the product.");
@@ -86,7 +90,7 @@ public class UserIO {
         return userOption;
     }
 
-    public int BuyMenu(StringBuilder msg, int vaildChoiceLimit)
+    public int BuyMenu(StringBuilder msg, int validChoiceLimit)
     {
         int userOption;
         do {
@@ -99,7 +103,7 @@ public class UserIO {
             if(sc.hasNextInt()) {
                 userOption = sc.nextInt();
 
-                if(userOption < 0 && userOption > vaildChoiceLimit)
+                if(userOption < 0 && userOption > validChoiceLimit)
                     System.out.println("Invalid request!");
 
             }
@@ -108,7 +112,7 @@ public class UserIO {
                 System.out.println("Invalid request!");
             }
         }
-        while (userOption < 0 && userOption > vaildChoiceLimit);
+        while (userOption < 0 && userOption > validChoiceLimit);
 
         return userOption;
     }
@@ -179,6 +183,21 @@ public class UserIO {
             currentTotalValue = currentTotalValue.add(BigDecimal.valueOf( userInputMoneys.get(key) ).multiply( key.getMoneyValue()));
         }
         return currentTotalValue;
+    }
+
+    public void PrintChange()
+    {
+        StringBuilder msg = new StringBuilder("Change:");
+        Set<Money> keys = userInputMoneys.keySet();
+        for (Money key : keys)
+        {
+            if(userInputMoneys.get(key) > 0)
+            {
+                msg.append(" ").append(userInputMoneys.get(key)).append(" ").append(key.toString());
+
+            }
+        }
+        System.out.println(msg);
     }
 
     public void AddUserInputMoney(Money money, Integer count)
