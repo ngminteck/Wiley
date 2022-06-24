@@ -41,9 +41,11 @@ select *
 from employees
 where hire_date  >= "2004-01-01";
 
-select *
+select * 
 from employees
 where salary = (select max(salary)  from employees );
+
+
 
 select *
 from employees
