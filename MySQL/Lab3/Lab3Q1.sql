@@ -32,7 +32,7 @@ from employees e
 left outer join employees m
 on e.manager_id = m.employee_id;
 
-select concat(e.first_name, " " , e.last_name) as employees_name, concat(m.first_name, " ", m.last_name) as manager_name
+select concat(e.first_name, " " , e.last_name) as employees_name, ifnull(concat(m.first_name, " ", m.last_name),'None') as manager_name
 from employees e
 left outer join employees m
 on e.manager_id = m.employee_id;
