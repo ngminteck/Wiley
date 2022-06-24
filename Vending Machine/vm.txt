@@ -1,3 +1,4 @@
+2022-06-24T16:50:12.136
 "Mineral Water Bottle 500ml",0.70,10
 "Sprite Can 330ml",0.85,6
 "7up Can 330ml",0.75,7

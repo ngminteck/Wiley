@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,11 +82,16 @@ public class InventoryFileImpl implements Inventory {
                  "Could not save vending machine data.", e);
       }
 
+      out.println(LocalDateTime.now());
+      out.flush();
+
       items.forEach(i -> {
          StringBuilder stringData = Serialization(i);
          out.println(stringData);
          out.flush();
       } );
+
+      System.out.println("Data saved.");
 
       out.close();
 
@@ -109,6 +115,7 @@ public class InventoryFileImpl implements Inventory {
 
          //br returns as stream and convert it into a List
          list = br.lines().collect(Collectors.toList());
+         System.out.println("Data loaded.");
 
       } catch (IOException e) {
          e.printStackTrace();
@@ -120,6 +127,7 @@ public class InventoryFileImpl implements Inventory {
 
    public void DeSerialization(String string)
    {
+
       // remove the first "
       string = string.substring(1);
       int index =  string.indexOf("\"");
