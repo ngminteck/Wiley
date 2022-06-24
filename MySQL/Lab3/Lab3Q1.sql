@@ -1,5 +1,7 @@
 use hr;
 
+-- is null , is not null
+
 -- cross join no condition
 select e.first_name, d.department_name
 from employees e, departments d;
