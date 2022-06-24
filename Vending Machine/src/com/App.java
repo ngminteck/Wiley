@@ -1,13 +1,9 @@
 package com;
 
 import com.sg.controller.VendingMachineController;
-import com.sg.dao.Inventory;
 import com.sg.dao.InventoryFileImpl;
 import com.sg.ui.UserIO;
-
 import com.sg.ui.VendingMachineView;
-
-import java.math.BigDecimal;
 
 public class App
 {

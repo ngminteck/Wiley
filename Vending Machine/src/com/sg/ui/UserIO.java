@@ -25,8 +25,8 @@ public class UserIO {
     {
         System.out.println("Please enter the name of the product,\" character will be remove.");
         String userInput = sc.next();
-        userInput.replaceAll("\"","");
-        return sc.next();
+        userInput = userInput.replaceAll("\"","");
+        return userInput;
     }
 
     public BigDecimal BigDecimalInput()

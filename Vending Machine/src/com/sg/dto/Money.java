@@ -74,11 +74,6 @@ public enum Money {
         }
     }
 
-    public static Map<BigDecimal,Money> GetAllEnumForLoop()
-    {
-        return valueToEnum;
-    }
-
     public static Money GetEnumByMoneyValue(BigDecimal moneyValue)
     {
         return valueToEnum.get(moneyValue);
