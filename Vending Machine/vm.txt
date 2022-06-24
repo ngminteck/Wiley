@@ -7,4 +7,4 @@
 "Nestle Coffee can 250ml",1.80,1
 "Yeo sofa bean milk 330ml",0.90,5
 "Jasmine Green Tea Bottle 500ml",2.00,3
-"Red Bull 500ml",2.30,9
+"Red Bull 500ml",2.30,8

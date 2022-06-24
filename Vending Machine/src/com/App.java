@@ -20,7 +20,7 @@ public class App
 
         VendingMachineController controller = new VendingMachineController(myView,myInventory);
         // uncomment Init if want hardcore add item and money into the vending machine
-        controller.Init();
+       // controller.Init();
         controller.Run();
 
     }

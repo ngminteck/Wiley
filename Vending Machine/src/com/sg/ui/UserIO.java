@@ -23,7 +23,9 @@ public class UserIO {
 
     public String StringInput()
     {
-        System.out.println("Please enter the name of the product.");
+        System.out.println("Please enter the name of the product,\" character will be remove.");
+        String userInput = sc.next();
+        userInput.replaceAll("\"","");
         return sc.next();
     }
 

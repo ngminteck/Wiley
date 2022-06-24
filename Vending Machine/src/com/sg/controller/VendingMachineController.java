@@ -37,7 +37,16 @@ public class VendingMachineController {
 
 
     }
-    public void Run() {
+    public void Run()
+    {
+        try
+        {
+            inventory.ReadFile();
+        }
+        catch (VendingMachineException e)
+        {
+            view.displayErrorMessage(e.getMessage());
+        }
         while (true)
         {
             int optionsMainMenu = view.PrintMainMenu();

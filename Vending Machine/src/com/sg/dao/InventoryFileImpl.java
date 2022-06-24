@@ -3,11 +3,17 @@ package com.sg.dao;
 import com.sg.dto.Item;
 import com.sg.dto.ItemWrapper;
 
+import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 // Inventory have a lot of type, like digital , coupon or the item itself
 // payment have a lot mode can be cash payment or card payment etc
@@ -22,6 +28,10 @@ public class InventoryFileImpl implements Inventory {
       return items;
    }
 
+   public InventoryFileImpl()
+   {
+
+   }
 
    @Override
    public void AddNewItemProduct(String name, BigDecimal price, Integer count)
@@ -89,6 +99,81 @@ public class InventoryFileImpl implements Inventory {
        write.append(",");
        write.append(data.getStock());
        return write;
+   }
+
+   public void ReadFile()throws VendingMachineException
+   {
+      List<String> list = new ArrayList<>();
+
+      try (BufferedReader br = Files.newBufferedReader(Paths.get(FILENAME))) {
+
+         //br returns as stream and convert it into a List
+         list = br.lines().collect(Collectors.toList());
+
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+
+      list.forEach(this::DeSerialization);
+
+   }
+
+   public void DeSerialization(String string)
+   {
+      // remove the first "
+      string = string.substring(1);
+      int index =  string.indexOf("\"");
+
+      // invalid for the name"";
+      if(index < 0)
+         return;
+
+      String name = string.substring(0,index);
+
+      string = string.substring(index);
+
+      // check can it remove ", if length less than 2 surely corrupted
+      if(string.length() < 2)
+         return;
+
+      string = string.substring(2);
+
+      String[] data = string.split(",");
+
+      // invalid as you need at least 2 data
+      if(data.length < 2)
+         return;
+
+      double value;
+      try
+      {
+         value = Double.parseDouble(data[0]);
+      }
+      // invalid
+      catch (NumberFormatException ignored)
+      {
+         return;
+      }
+
+
+
+      int stock;
+      try
+      {
+         stock = Integer.parseInt(data[1]);
+      }
+      // invalid
+      catch (NumberFormatException ignored)
+      {
+         return;
+      }
+
+      BigDecimal cost = new BigDecimal(value);
+      cost = cost.setScale(2, RoundingMode.HALF_UP);
+
+      items.add(new ItemWrapper(new Item(name,cost),stock));
+
+
    }
 
 }
