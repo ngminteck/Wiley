@@ -1,6 +1,7 @@
 use hr;
 
 -- is null , is not null
+-- ifnull(colun, default value) function
 
 -- cross join no condition
 select e.first_name, d.department_name
