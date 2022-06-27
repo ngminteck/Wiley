@@ -1,4 +1,4 @@
-package Lab;
+package main.java.Lab;
 
 abstract class Abstract
 {
