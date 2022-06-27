@@ -1,0 +1,17 @@
+com\sg\dto\ItemWrapper.class
+com\sg\controller\VendingMachineController.class
+com\sg\dto\Money$2.class
+com\sg\dto\Money$4.class
+com\sg\dao\InventoryFileImpl.class
+com\App.class
+com\sg\dto\Money.class
+com\sg\dto\Money$5.class
+com\sg\ui\VendingMachineView.class
+com\sg\dao\VendingMachineException.class
+com\sg\dto\Money$1.class
+com\sg\dto\Money$6.class
+com\sg\dto\Item.class
+com\sg\ui\UserIO.class
+com\sg\dao\Inventory.class
+com\sg\dto\Money$7.class
+com\sg\dto\Money$3.class

@@ -100,7 +100,7 @@ public class VendingMachineController {
             if(options == 0)
             {
                 // set insert money to zero
-                //view.getIo().InitUserInputMoneyLinkHashMap();
+                view.getIo().InitUserInputMoneyLinkHashMap();
                 break;
             }
 
