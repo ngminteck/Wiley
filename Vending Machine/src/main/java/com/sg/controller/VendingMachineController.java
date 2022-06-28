@@ -1,6 +1,8 @@
 package com.sg.controller;
 
+import com.sg.dao.InsufficientFundsException;
 import com.sg.dao.InventoryFileImpl;
+import com.sg.dao.NoItemInventoryException;
 import com.sg.dao.VendingMachineException;
 import com.sg.dto.Item;
 import com.sg.dto.ItemWrapper;
@@ -50,7 +52,6 @@ public class VendingMachineController {
         while (true)
         {
             int optionsMainMenu = view.PrintMainMenu();
-
 
             if(optionsMainMenu == 1)
             {
@@ -107,15 +108,16 @@ public class VendingMachineController {
         }
     }
 
-    private Boolean SuccessFullyBuy(int options)
-    {
+    private Boolean SuccessFullyBuy(int options){
         int index = options - 1;
 
         ItemWrapper selectedItem = inventory.getItems().get(index);
 
         if(selectedItem.getStock() <= 0 )
         {
-            System.out.println(options + ":" + selectedItem.getItem().getName() + " is out of stock.");
+            String msg = options + ":" + selectedItem.getItem().getName() + " is out of stock.";
+            System.out.println(msg);
+
             return false;
         }
 
@@ -124,15 +126,13 @@ public class VendingMachineController {
         {
             BigDecimal requireMoney = selectedItem.getItem().getCost();
             requireMoney = requireMoney.subtract(userMoney);
-            System.out.println("Insufficient amount, require $" + requireMoney + " more." );
+            String msg = "Insufficient amount, require $" + requireMoney + " more.";
+            System.out.println(msg);
             return false;
         }
 
-        if(selectedItem.getItem().getCost().compareTo(userMoney)==0)
-        {
-            view.getIo().InitUserInputMoneyLinkHashMap();
-        }
-        else if(selectedItem.getItem().getCost().compareTo(userMoney) < 0)
+
+        if(selectedItem.getItem().getCost().compareTo(userMoney) < 0)
         {
             MoneyChange(view.getIo().getUserInputMoneys(),selectedItem.getItem().getCost());
             view.getIo().PrintChange();
