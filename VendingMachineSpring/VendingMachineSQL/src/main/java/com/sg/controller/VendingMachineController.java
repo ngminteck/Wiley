@@ -1,10 +1,6 @@
 package com.sg.controller;
 
-import com.sg.dao.InsufficientFundsException;
-import com.sg.dao.InventoryFileImpl;
-import com.sg.dao.JDBC;
-import com.sg.dao.NoItemInventoryException;
-import com.sg.dao.VendingMachineException;
+import com.sg.dao.*;
 import com.sg.dto.Item;
 import com.sg.dto.ItemWrapper;
 import com.sg.dto.Money;
@@ -42,6 +38,8 @@ public class VendingMachineController {
     }
     public void Run()
     {
+        JDBC jdbc = new JDBC();
+
         try
         {
             inventory.ReadFile();
@@ -50,6 +48,9 @@ public class VendingMachineController {
         {
             view.displayErrorMessage(e.getMessage());
         }
+
+
+        //jdbc.ReadItem(inventory.getItems());
         while (true)
         {
             int optionsMainMenu = view.PrintMainMenu();
@@ -75,9 +76,9 @@ public class VendingMachineController {
         {
             view.displayErrorMessage(e.getMessage());
         }
-        
-        JDBC jdbc = new JDBC();
-        jdbc.SaveItem(inventory.getItems());
+
+
+        //jdbc.SaveItem(inventory.getItems());
 
     }
 
