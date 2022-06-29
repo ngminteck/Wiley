@@ -54,11 +54,11 @@ public class State
 
         State state = (State) o;
 
-        return stateName.equals(state.stateName);
+        return stateAbbreviation.equals(state.stateAbbreviation);
     }
 
     @Override
     public int hashCode() {
-        return stateName.hashCode();
+        return stateAbbreviation.hashCode();
     }
 }
