@@ -1,0 +1,16 @@
+DROP DATABASE IF EXISTS VendingMachine;
+CREATE DATABASE VendingMachine;
+
+USE VendingMachine;
+
+DROP TABLE IF EXISTS Items;
+
+CREATE TABLE Items (
+ ItemsID INT AUTO_INCREMENT PRIMARY KEY,
+`Name` VARCHAR(100),
+ Price DECIMAL(6,2),
+ Stock Int
+);
+
+SELECT *
+FROM Items;

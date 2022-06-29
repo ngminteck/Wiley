@@ -35,6 +35,15 @@ INSERT INTO Grade VALUES ('2', 'English', 75, 'Chinese', 75, 'Math', 75, 'Scienc
 INSERT INTO Grade VALUES ('3', 'English', 0 , 'Chinese', 0, 'Math', 0, 'Science', 0 );
 INSERT INTO Grade VALUES ('4', 'English', 50, null , 0, 'Math', 80, 'Science', 70 );
 
+INSERT INTO Student VALUES ('5', 'Clarence');
+INSERT INTO Grade VALUES ('5', 'English', 100, 'Chinese', 100, 'Math', 100, 'Science', 100 );
+INSERT INTO Student VALUES ('6', 'a');
+INSERT INTO Grade VALUES ('6', 'English', 100, 'Chinese', 100, 'Math', 100, 'Science', 100 );
+INSERT INTO Student VALUES ('7', 'b');
+INSERT INTO Grade VALUES ('7', 'English', 70, 'Chinese', 70, 'Math', 70, 'Science', 70 );
+INSERT INTO Student VALUES ('8', 'c');
+INSERT INTO Grade VALUES ('8', 'English', 55, 'Chinese', 55, 'Math', 55, 'Science', 55 );
+
 select *
 from grade;
 
