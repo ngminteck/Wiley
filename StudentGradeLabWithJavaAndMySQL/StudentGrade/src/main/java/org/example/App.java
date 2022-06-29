@@ -3,6 +3,10 @@ package org.example;
 import java.sql.*;
 import java.util.ArrayList;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+
 class Subject
 {
     private final String name;
@@ -74,9 +78,13 @@ class GradeProcessing
     }
 }
 
+@SpringBootApplication
 public class App 
 {
     public static void main( String[] args ) throws SQLException {
+
+        SpringApplication.run(DemoApplication.class, args);
+
         String url = "jdbc:mysql://localhost:3306/studentgradelab";
         String user = "root";
         String password = "[901f]";
