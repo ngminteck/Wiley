@@ -1,0 +1,9 @@
+<h1>Student Result List</h1>
+<div *ngFor="let student of studentlist ">
+<p>{{student.id}}</p>
+<p>{{student.name}}</p>
+<div *ngFor="let subject of student.subject">
+<p>{{subject.name}} {{subject.score}}</p>
+</div>
+
+</div>
