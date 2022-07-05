@@ -1,17 +1,17 @@
 package com.sg.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class DVD
 {
     private String title;
-    private LocalDateTime releaseDate;
+    private LocalDate releaseDate;
     private String mPAARating;
     private String directorName;
     private String studio;
     private String ratingAndNote;
 
-    public DVD(String title, LocalDateTime releaseDate, String mPAARating, String directorName, String studio, String ratingAndNote) {
+    public DVD(String title, LocalDate releaseDate, String mPAARating, String directorName, String studio, String ratingAndNote) {
         this.title = title;
         this.releaseDate = releaseDate;
         this.mPAARating = mPAARating;
@@ -28,11 +28,11 @@ public class DVD
         this.title = title;
     }
 
-    public LocalDateTime getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDateTime releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 
