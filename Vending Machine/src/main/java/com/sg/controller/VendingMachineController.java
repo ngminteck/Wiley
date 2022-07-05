@@ -38,7 +38,7 @@ public class VendingMachineController {
     }
     public void Run()
     {
-        JDBC jdbc = new JDBC();
+        //JDBC jdbc = new JDBC();
 
         try
         {
