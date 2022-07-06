@@ -22,11 +22,11 @@ public class App
         VendingMachineAuditDao myAuditDao = new VendingMachineAuditDaoFileImpl();
 
         // Instantiate the Service Layer and wire the DAO and Audit DAO into it
-        VendingMachineServiceLayer myService = new VendingMachineServiceLayer(myInventory, myAuditDao);
+        VendingMachineServiceLayer myService = new VendingMachineServiceLayer(myInventory, myAuditDao, myView);
 
 
         // Instantiate the Controller and wire the Service Layer into it
-        VendingMachineController controller = new VendingMachineController(myView,myInventory);
+        VendingMachineController controller = new VendingMachineController(myView,myService);
         // uncomment Init if want hardcore add item and money into the vending machine
        // controller.Init();
         // Kick off the Controller

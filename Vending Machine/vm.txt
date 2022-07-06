@@ -1,9 +1,9 @@
-2022-06-29T17:00:24.510
+2022-07-06T15:30:09.931
 "Mineral Water Bottle 500ml",0.70,10
 "Sprite Can 330ml",0.85,6
 "7up Can 330ml",0.75,7
 "Coke can 330ml",1.20,0
-"Pepsi can 330ml",1.00,2
+"Pepsi can 330ml",1.00,1
 "Milo can 250ml",1.80,1
 "Nestle Coffee can 250ml",1.80,1
 "Yeo sofa bean milk 330ml",0.90,5
