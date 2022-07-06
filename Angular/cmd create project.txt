@@ -1,1 +1,2 @@
 ng new appname
+ng ng generate component componet-name

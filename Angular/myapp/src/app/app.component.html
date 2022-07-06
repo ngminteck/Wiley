@@ -1,9 +1,7 @@
 <h1>Student Result List</h1>
 <div *ngFor="let student of studentlist ">
-<p>{{student.id}}</p>
-<p>{{student.name}}</p>
-<div *ngFor="let subject of student.subject">
-<p>{{subject.name}} {{subject.score}}</p>
+<p>StudentID:{{student.id}}</p>
+<p>Name:{{student.name}}</p>
+<app-subject [student]="student" (notify)="onNotify(student)"></app-subject>
 </div>
 
-</div>
