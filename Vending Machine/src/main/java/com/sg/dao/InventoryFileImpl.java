@@ -71,14 +71,14 @@ public class InventoryFileImpl implements Inventory {
    }
 
 
-   public void FileWrite() throws VendingMachineException
+   public void FileWrite() throws VendingMachinePersistenceException
    {
       PrintWriter out;
 
       try {
          out = new PrintWriter(new FileWriter(FILENAME));
       } catch (IOException e) {
-         throw new VendingMachineException(
+         throw new VendingMachinePersistenceException(
                  "Could not save vending machine data.", e);
       }
 
@@ -107,7 +107,7 @@ public class InventoryFileImpl implements Inventory {
        return write;
    }
 
-   public void ReadFile()throws VendingMachineException
+   public void ReadFile()throws VendingMachinePersistenceException
    {
       List<String> list = new ArrayList<>();
 

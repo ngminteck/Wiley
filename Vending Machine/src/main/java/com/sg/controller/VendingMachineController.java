@@ -44,7 +44,7 @@ public class VendingMachineController {
         {
             inventory.ReadFile();
         }
-        catch (VendingMachineException e)
+        catch (VendingMachinePersistenceException e)
         {
             view.displayErrorMessage(e.getMessage());
         }
@@ -72,7 +72,7 @@ public class VendingMachineController {
         try {
             inventory.FileWrite();
         }
-        catch (VendingMachineException e)
+        catch (VendingMachinePersistenceException e)
         {
             view.displayErrorMessage(e.getMessage());
         }
