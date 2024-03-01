@@ -1,0 +1,34 @@
+{
+    "post":[
+        {
+            "post_id": 1,
+            "title":"postOne",
+            "header":"postOne",
+            "body": "this is the content for post one",
+            "post_date":"1/1/2020",
+            "expiry_date":"1/2/2020",
+            "isApproved": true,
+            "user_id": 1
+        },
+        {
+            "post_id": 2,
+            "title":"postTwo",
+            "header":"postTwo",
+            "body": "this is the content for post two",
+            "post_date":"1/1/2020",
+            "expiry_date":"1/2/2020",
+            "isApproved": true,
+            "user_id": 1
+        },
+        {
+            "post_id": 3,
+            "title":"postThree",
+            "header":"postThree",
+            "body": "this is the content for post three",
+            "post_date":"1/1/2020",
+            "expiry_date":"1/2/2020",
+            "isApproved": true,
+            "user_id": 1
+        }
+    ]
+}

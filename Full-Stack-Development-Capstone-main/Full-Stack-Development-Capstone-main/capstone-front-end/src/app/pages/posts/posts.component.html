@@ -1,0 +1,18 @@
+<h1>Posts Page</h1>
+<div *ngFor="let post of posts">
+    <!-- <h5>{{post.header}}</h5>
+    <p>{{post.body}}</p>
+    <p>{{post.userId}}</p> -->
+    <!-- <a href="/post/{{post.postId}}"><h3>{{post.header}}</h3></a>
+    <h5>{{post.body}}</h5> -->
+    <a href="/post/{{ post.postId }}">
+        <h3>{{ post.header }}</h3>
+    </a>
+    <div class="tiny-mce-content" [innerHTML]="post.body"></div>
+    <hr>
+</div>
+
+
+<!-- <app-post *ngFor="let post of posts"
+[post] = "post">
+</app-post> -->

@@ -1,0 +1,33 @@
+
+<form (ngSubmit)="onAddNewCategory(catForm)" #catForm="ngForm">
+    <label>Category Name</label>
+    <input name="name-categoryname" [(ngModel)]="catModel.categoryName" type="text" required />
+    <button type="submit">Add New Category</button>
+</form>
+
+<form (ngSubmit)="onSubmit(postForm)" #postForm="ngForm">
+    <label>Category</label>
+    <select name="name-category" [(ngModel)]="model.categoryId" required>
+        <option *ngFor="let c of categories" value={{c.categoryId}}>{{c.categoryName}}</option>
+    </select>
+    <label>Title</label>
+    <input name="name-title" [(ngModel)]="model.title" type="text" required />
+    <label>Expire Date</label>
+    <input name="name-expiredate" [(ngModel)]="model.expireDate" type="date" required />
+    <editor name="name-content" [(ngModel)]="model.body" apiKey=xrzzz3pw8vlxxgwiupdjs8wwvshyln0vz0fbdgm8ndwuxr1j
+        [init]="{
+        height: 1000,
+        plugins: [
+            'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
+            'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+            'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
+        ],
+        toolbar:
+        'undo redo | casechange blocks | bold italic backcolor | \
+        alignleft aligncenter alignright alignjustify | \
+        bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+        }">
+    </editor>
+    <button>Cancel</button>
+    <button type="submit">{{buttonText}}</button>
+</form>

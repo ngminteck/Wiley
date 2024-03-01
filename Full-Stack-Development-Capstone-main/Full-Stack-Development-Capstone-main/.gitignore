@@ -1,0 +1,4 @@
+/.metadata/
+*/.vscode
+*/node_modules
+.angular/

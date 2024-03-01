@@ -1,0 +1,5 @@
+<div *ngIf="post">
+    <h3>{{ post.header }}</h3>
+    <p>{{ post.postDate }}</p>
+    <div class="tiny-mce-content" [innerHTML]="post.body"></div>
+</div>
